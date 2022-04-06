@@ -1,0 +1,7 @@
+Unit conversion of trajectory data
+
+Mouse: multiplying 0.2 to cm
+
+Beetle: 
+ x: multiplying 0.087331 to mm
+ y: multiplying 0.09135 to mm
