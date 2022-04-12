@@ -6,6 +6,11 @@ import pandas as pd
 import os
 import seaborn as sns
 from sklearn.preprocessing import normalize
+from sklearn import preprocessing
+import matplotlib
+import seaborn as sns
+
+matplotlib.use('Qt5Agg')
 
 color_list = ['#845EC2', '#B39CD0', '#D65DB1', '#4FFBDF', '#FFC75F',
               '#D5CABD', '#B0A8B9', '#FF6F91', '#F9F871', '#D7E8F0',
@@ -85,7 +90,7 @@ def pre_looming_data(file_path, dataframe, state=""):  # 计算熵值
         looming_time = int(dataframe.at[j, state])
         df1 = pd.read_csv(file_path[j])
 
-        data = df1.iloc[looming_time - 0 * 30:looming_time + 120 * 30, 1:2]
+        data = df1.iloc[looming_time - 300 * 30:looming_time + 0 * 30, 1:2]
         for i in range(1, len(data)):
             if data.iloc[i, 0] != data.iloc[i - 1, 0]:
                 fre = fre + 1
@@ -148,31 +153,51 @@ def single_behavior_cal(file_path, dataframe, state=""):  # 计算16个行为的
     return behavior_label_num
 
 
+def dataframe_norm(input_data):
+    x = input_data.values  # returns a numpy array
+    min_max_scaler = preprocessing.MinMaxScaler()
+    x_scaled = min_max_scaler.fit_transform(x)
+    norm_data = pd.DataFrame(x_scaled)
+
+    return norm_data
+
+
+def normalize_2d(matrix):
+    norm = np.linalg.norm(matrix)
+    matrix = matrix / norm  # normalized matrix
+    return matrix
+
+
 if __name__ == '__main__':
-    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
-                 name="video_info.xlsx", column="looming_time3", state_name="Male_RoRR")  # Male_Wakefulness
+    """
+        SP behavior 60min
+    """
+    """
+    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min',
+                 name="video_info.xlsx", column="looming_time3", state_name="Male_Wakefulness")  # Male_Wakefulness
 
     file_list_1 = []
-    for item in a['Video_name'][0:5]:
+    # for item in a['Video_name'][0:len(a['Video_name'])]:
+    for item in a['Video_name'][0:10]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min/new_results/BeAMapping-replace",
             name="{}_Movement_Labels".format(item))
         file_list_1.append(file_list1)
     file_list_1 = list(np.ravel(file_list_1))
 
-    b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
-                 name="video_info.xlsx", column="looming_time3", state_name="Female_RoRR")  # Female_Wakefulness
+    b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min',
+                 name="video_info.xlsx", column="looming_time3", state_name="Female_Wakefulness")  # Female_Wakefulness
 
     file_list_2 = []
-    for item in b['Video_name'][0:6]:
+    # for item in b['Video_name'][0:len(a['Video_name'])]:
+    for item in b['Video_name'][0:10]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min/new_results/BeAMapping-replace",
             name="{}_Movement_Labels".format(item))
         file_list_2.append(file_list1)
     file_list_2 = list(np.ravel(file_list_2))
-
     # c = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
     #              name="video_info.xlsx", column="looming_time1", state_name="Male_Wakefulness")  # Male_Wakefulness
 
@@ -201,11 +226,73 @@ if __name__ == '__main__':
 
     # Male_list = pre_data(file_list_1, 20, 25)
     # Female_list = pre_data(file_list_2, 20, 25)
+    all_shang = []
+    for i in range(1, 13):
+        Male_list = pre_looming_data(file_list_1, a, state="looming_time{}".format(i))
+        Female_list = pre_looming_data(file_list_2, b, state="looming_time{}".format(i))
+        # print(Male_list)
+        # print(Female_list)
+        MFM_list = Male_list + Female_list
+        all_shang.append(MFM_list)
+        # MFM_list.clear()
+    all_shang_value = pd.DataFrame(all_shang)
+    all_shang_value2 = (all_shang_value - all_shang_value.min()) / (all_shang_value.max() - all_shang_value.min())
+    # all_shang_value1 = np.array(all_shang_value)
+    all_shang_value3 = normalize_2d(all_shang_value)
+    all_shang_value3 = pd.DataFrame(all_shang_value3)
+    # all_shang_value3 = all_shang_value3.multiply(10)
+    # sns.heatmap(all_shang_value2)
+    # all_shang_value.to_csv('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_space/SP_behavior_shang/SP_shang_old.csv')
+    """
 
-    Male_list = pre_looming_data(file_list_1, a, state="looming_time4")
-    Female_list = pre_looming_data(file_list_2, b, state="looming_time4")
-    print(Male_list)
-    print(Female_list)
+    """
+        SP Arousal:       Wake:10min                 Arousal:60min
+    """
+    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
+                 name="video_info.xlsx", column="looming_time3", state_name="Male_Wakefulness")  # Male_Wakefulness
+
+    file_list_1 = []
+    # for item in a['Video_name'][0:len(a['Video_name'])]:
+    for item in a['Video_name'][0:10]:
+        item = item.replace("-camera-0", "")
+        file_list1 = search_csv(
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2/BeAMapping",
+            name="{}_Movement_Labels".format(item))
+        file_list_1.append(file_list1)
+    file_list_1 = list(np.ravel(file_list_1))
+
+    b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
+                 name="video_info.xlsx", column="looming_time3", state_name="Female_Wakefulness")  # Female_Wakefulness
+
+    file_list_2 = []
+    # for item in b['Video_name'][0:len(a['Video_name'])]:
+    for item in b['Video_name'][0:10]:
+        item = item.replace("-camera-0", "")
+        file_list1 = search_csv(
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2/BeAMapping",
+            name="{}_Movement_Labels".format(item))
+        file_list_2.append(file_list1)
+    file_list_2 = list(np.ravel(file_list_2))
+
+    all_shang = []
+    for i in range(1, 3):
+        Male_list = pre_looming_data(file_list_1, a, state="looming_time{}".format(i))
+        Female_list = pre_looming_data(file_list_2, b, state="looming_time{}".format(i))
+        # print(Male_list)
+        # print(Female_list)
+        MFM_list = Male_list + Female_list
+        print(MFM_list)
+        all_shang.append(MFM_list)
+        # MFM_list.clear()
+    all_shang_value = pd.DataFrame(all_shang)
+    all_shang_value2 = (all_shang_value - all_shang_value.min()) / (all_shang_value.max() - all_shang_value.min())
+    # all_shang_value1 = np.array(all_shang_value)
+    all_shang_value3 = normalize_2d(all_shang_value)
+    all_shang_value3 = pd.DataFrame(all_shang_value3)
+    # all_shang_value3 = all_shang_value3.multiply(10)
+    # sns.heatmap(all_shang_value2)
+    # all_shang_value.to_csv('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_space/SP_behavior_shang/SPArousal_wake_shang_old.csv')
+
 
     """
         5分钟内16个行为的频率

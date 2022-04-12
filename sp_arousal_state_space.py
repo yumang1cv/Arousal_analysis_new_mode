@@ -8,6 +8,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy.signal import savgol_filter
 import matplotlib
+matplotlib.use('Qt5Agg')
 
 # color_list = sns.color_palette("Spectral", 40)
 color_list = ['#845EC2', '#B39CD0', '#D65DB1', '#4FFBDF', '#FFC75F',
@@ -155,87 +156,157 @@ def data_combine(file_path, special_time_start, special_time_end):
 
 
 if __name__ == '__main__':
-    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
+    """
+        SP_Arousal behavior wake: 10min  RORR:60min
+    """
+    # a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
+    #              name="video_info.xlsx", column="looming_time3", state_name="Male_Wakefulness")  # Male_Wakefulness
+    #
+    # file_list_1 = []
+    # # for item in a['Video_name'][0:len(a['Video_name'])]:
+    # for item in a['Video_name'][0:10]:
+    #     item = item.replace("-camera-0", "")
+    #     file_list1 = search_csv(
+    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
+    #         name="{}_Feature_Space".format(item))
+    #     file_list_1.append(file_list1)
+    # file_list_1 = list(np.ravel(file_list_1))
+    #
+    # b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
+    #              name="video_info.xlsx", column="looming_time3", state_name="Female_Wakefulness")  # Female_Wakefulness
+    #
+    # file_list_2 = []
+    # # for item in b['Video_name'][0:len(a['Video_name'])]:
+    # for item in b['Video_name'][0:10]:
+    #     item = item.replace("-camera-0", "")
+    #     file_list1 = search_csv(
+    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
+    #         name="{}_Feature_Space".format(item))
+    #     file_list_2.append(file_list1)
+    # file_list_2 = list(np.ravel(file_list_2))
+    #
+    # # time = 4
+    # for time in range(1, 2):
+    #
+    #     Male_data = []
+    #     Male_time = []
+    #     for i in range(0, len(file_list_1)):
+    #         # single_data = data_combine(file_list_1[i], 10, 15)
+    #         single_data = data_combine(file_list_1[i], a['looming_time{}'.format(time)][i],
+    #                                    a['looming_time{}'.format(time)][i] + 2 * 1800)
+    #         Male_data.append(single_data)
+    #
+    #     Female_data = []
+    #     for i in range(0, len(file_list_2)):
+    #         # single_data = data_combine(file_list_2[i], 10, 15)
+    #         single_data = data_combine(file_list_2[i], b['looming_time{}'.format(time)][i],
+    #                                    b['looming_time{}'.format(time)][i] + 2 * 1800)
+    #         # single_data = data_combine(file_list_2[i], 6618, 6618 + 2 * 1800)
+    #         Female_data.append(single_data)
+    #
+    #     # plt.figure(figsize=(10, 3), dpi=300)
+    #     fig = plt.figure(figsize=(24, 3), dpi=300)
+    #     ax = fig.add_subplot(111)
+    #     for j in range(len(Male_data)):
+    #         for i in range(len(Male_data[0])):
+    #             plt.broken_barh(Male_data[j][i], (j, 0.8), facecolors=color_list[i])
+    #             plt.broken_barh(Female_data[j][i], (j + 5, 0.8), facecolors=color_list[i])
+    #
+    #     for i in range(len(Female_data[5])):
+    #         plt.broken_barh(Female_data[5][i], (10, 0.8), facecolors=color_list[i])
+    #
+    #     plt.axhline(y=4.9, linewidth=1.5, color='black', linestyle='--')
+    #     plt.yticks([2.5, 8], ['Males', 'Females'], fontsize=12, rotation=90)
+    #     # plt.xticks([0, 18000], ['0', '10'], fontsize=12)
+    #     plt.xticks([0, 3600], ['0', '2'])
+    #     # plt.xticks([0, 18000, 36000, 54000, 72000, 90000, 108000], ['0', '10', '20', '30', '40', '50', '60'])
+    #     plt.tight_layout()
+    #     # plt.axis('off')
+    #     ax.spines['right'].set_visible(False)
+    #     ax.spines['top'].set_visible(False)
+    #     for axis in ['top', 'bottom', 'left', 'right']:
+    #         ax.spines[axis].set_linewidth(1.5)
+    #     plt.show()
+    #     # plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_space/SP_Arousal_add_60'
+    #     #             '/RoRR_all_V2.tiff', dpi=300)
+    #     # plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_space/State_space_normal'
+    #     #             '/Wakefulness_{}_v5.tiff'.format(time), dpi=300)
+    #     # plt.close()
+
+    """
+        SP behavior wake: 60min  
+    """
+    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min',
                  name="video_info.xlsx", column="looming_time3", state_name="Male_Wakefulness")  # Male_Wakefulness
 
     file_list_1 = []
     # for item in a['Video_name'][0:len(a['Video_name'])]:
-    for item in a['Video_name'][0:5]:
+    for item in a['Video_name'][0:10]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min/new_results/BeAMapping-replace",
             name="{}_Feature_Space".format(item))
         file_list_1.append(file_list1)
     file_list_1 = list(np.ravel(file_list_1))
 
-    b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
+    b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min',
                  name="video_info.xlsx", column="looming_time3", state_name="Female_Wakefulness")  # Female_Wakefulness
 
     file_list_2 = []
     # for item in b['Video_name'][0:len(a['Video_name'])]:
-    for item in b['Video_name'][0:6]:
+    for item in b['Video_name'][0:10]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min/new_results/BeAMapping-replace",
             name="{}_Feature_Space".format(item))
         file_list_2.append(file_list1)
     file_list_2 = list(np.ravel(file_list_2))
 
     # time = 4
-    for time in range(1,2):
+    Male_data = []
+    Male_time = []
+    for i in range(0, len(file_list_1)):
+        # single_data = data_combine(file_list_1[i], 10, 15)
+        single_data = data_combine(file_list_1[i], 0, 108000)
+        Male_data.append(single_data)
 
-        Male_data = []
-        Male_time = []
-        for i in range(0, len(file_list_1)):
-            # single_data = data_combine(file_list_1[i], 10, 15)
-            single_data = data_combine(file_list_1[i], a['looming_time{}'.format(time)][i],
-                                       a['looming_time{}'.format(time)][i] + 2 * 1800)
-            Male_data.append(single_data)
+    Female_data = []
+    for i in range(0, len(file_list_2)):
+        # single_data = data_combine(file_list_2[i], 10, 15)
+        single_data = data_combine(file_list_2[i], 0, 108000)
+        # single_data = data_combine(file_list_2[i], 6618, 6618 + 2 * 1800)
+        Female_data.append(single_data)
 
-        Female_data = []
-        for i in range(0, len(file_list_2)):
-            # single_data = data_combine(file_list_2[i], 10, 15)
-            single_data = data_combine(file_list_2[i], b['looming_time{}'.format(time)][i],
-                                       b['looming_time{}'.format(time)][i] + 2 * 1800)
-            # single_data = data_combine(file_list_2[i], 6618, 6618 + 2 * 1800)
-            Female_data.append(single_data)
+    # plt.figure(figsize=(10, 3), dpi=300)
+    fig = plt.figure(figsize=(24, 6), dpi=300)
+    ax = fig.add_subplot(111)
+    for j in range(len(Male_data)):
+        for i in range(len(Male_data[0])):
+            plt.broken_barh(Male_data[j][i], (j, 0.8), facecolors=color_list[i])
+            plt.broken_barh(Female_data[j][i], (j + 10, 0.8), facecolors=color_list[i])
 
-        # plt.figure(figsize=(10, 3), dpi=300)
-        fig = plt.figure(figsize=(4, 3), dpi=300)
-        ax = fig.add_subplot(111)
-        for j in range(len(Male_data)):
-            for i in range(len(Male_data[0])):
-                plt.broken_barh(Male_data[j][i], (j, 0.8), facecolors=color_list[i])
-                plt.broken_barh(Female_data[j][i], (j + 5, 0.8), facecolors=color_list[i])
+    # for i in range(len(Female_data[5])):
+    #     plt.broken_barh(Female_data[5][i], (10, 0.8), facecolors=color_list[i])
 
-        for i in range(len(Female_data[5])):
-            plt.broken_barh(Female_data[5][i], (10, 0.8), facecolors=color_list[i])
-
-        plt.axhline(y=4.9, linewidth=1.5, color='black', linestyle='--')
-        plt.yticks([2.5, 8], ['Males', 'Females'], fontsize=12, rotation=90)
-        # plt.xticks([0, 18000], ['0', '10'], fontsize=12)
-        plt.xticks([0, 3600], ['0', '2'])
-        # plt.xticks([0, 18000, 36000, 54000, 72000, 90000, 108000], ['0', '10', '20', '30', '40', '50', '60'])
-        plt.tight_layout()
-        # plt.axis('off')
-        ax.spines['right'].set_visible(False)
-        ax.spines['top'].set_visible(False)
-        for axis in ['top', 'bottom', 'left', 'right']:
-            ax.spines[axis].set_linewidth(1.5)
-        plt.show()
-
-        # plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_space/SP_Arousal_add_60'
-        #             '/RoRR_all_V2.tiff', dpi=300)
-        plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_space/State_space_normal'
-                    '/Wakefulness_{}_v5.tiff'.format(time), dpi=300)
-        plt.close()
-    # Female_data = []
+    plt.axhline(y=9.9, linewidth=1.5, color='black', linestyle='--')
+    plt.yticks([5, 15], ['Males', 'Females'], fontsize=12, rotation=90)
+    # plt.xticks([0, 18000], ['0', '10'], fontsize=12)
+    # plt.xticks([0, 3600], ['0', '2'])
+    plt.xticks([0, 18000, 36000, 54000, 72000, 90000, 108000], ['0', '10', '20', '30', '40', '50', '60'])
+    plt.tight_layout()
+    # plt.axis('off')
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
+    for axis in ['top', 'bottom', 'left', 'right']:
+        ax.spines[axis].set_linewidth(1.5)
+    plt.show()
+    # plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_space/SP_Arousal_add_60'
+    #             '/RoRR_all_V2.tiff', dpi=300)
+    plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_space/SP_behavior_60min/'
+                'SP_behavior_60min.tiff', dpi=300)
+    plt.close()
 
 
-    # # Male_data = []
-    # # for i in range(0, 10):
-    # #     single_data = data_combine(file_list_1[i], 0, 5)
-    # #     Male_data.append(single_data)
     """
         单只老鼠使用
     """
