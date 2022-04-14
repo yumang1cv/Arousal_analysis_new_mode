@@ -16,6 +16,8 @@ import matplotlib
 import substring
 
 # color_list = sns.color_palette("Spectral", 40)
+from typing import List
+
 color_list = ['#845EC2', '#B39CD0', '#D65DB1', '#4FFBDF', '#FFC75F',
               '#D5CABD', '#B0A8B9', '#FF6F91', '#F9F871', '#D7E8F0',
               '#60DB73', '#E8575A', '#008B74', '#00C0A3', '#FF9671',
@@ -258,11 +260,11 @@ if __name__ == '__main__':
         """
             pandas计算步骤
         """
-        for time in range(0, len(f), 9000*2):
+        for time in range(0, len(f), 9000 * 2):
             class_type = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0,
                           9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 0}
 
-            for i in range(time, time+9000*2-1):  # i: start time --> end time
+            for i in range(time, time + 9000 * 2 - 1):  # i: start time --> end time
                 if int(f.iloc[i, 1:2]) not in class_type:
                     class_type[int(f.iloc[i, 1:2])] = 0
                 else:
@@ -271,7 +273,7 @@ if __name__ == '__main__':
             behavior_fre = list(class_type.values())
             behavior_all.append(behavior_fre)
             # print(behavior_all)
-            print('第{}分钟已计算完'.format(time/1800))
+            print('第{}分钟已计算完'.format(time / 1800))
     final_list = []
     for x in range(0, 6):
         ten_minute_list = []
@@ -283,4 +285,98 @@ if __name__ == '__main__':
 
     final_list_array = np.array(final_list).reshape(60, 16)
     final_data = pd.DataFrame(final_list_array)
-    final_data.to_csv('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/active_line/Female_RORR_active.csv')
+    row_index = [['0~10min'] * 10, ['11~20min'] * 10, ['21~30min'] * 10,
+                 ['31~40min'] * 10, ['41~50min'] * 10, ['51~60min'] * 10]
+    row_index = list(np.ravel(row_index))
+    final_data.index = [row_index]
+    """
+        求取behavior_numbers的数量
+    """
+    behavior_num = list((final_data == 0).astype(int).sum(axis=1))
+    behavior_num = (16 - np.array(behavior_num)).tolist()
+    final_data['behavior_numbers'] = behavior_num
+    final_data.to_csv('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/SP_behavior'
+                      '/SP_Arousal_Female.csv')
+
+    """
+        SP behavior wake 行为个数
+    """
+    # a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min',
+    #              name="video_info.xlsx", column="looming_time3", state_name="Male_Wakefulness")  # Male_Wakefulness
+    #
+    # file_list_1 = []
+    # # for item in a['Video_name'][0:len(a['Video_name'])]:
+    # for item in a['Video_name'][0:10]:
+    #     item = item.replace("-camera-0", "")
+    #     file_list1 = search_csv(
+    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min/new_results/BeAMapping-replace",
+    #         name="{}_Movement_Labels".format(item))
+    #     file_list_1.append(file_list1)
+    # file_list_1 = list(np.ravel(file_list_1))
+    #
+    # b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min',
+    #              name="video_info.xlsx", column="looming_time3", state_name="Female_Wakefulness")  # Female_Wakefulness
+    #
+    # file_list_2 = []
+    # # for item in b['Video_name'][0:len(a['Video_name'])]:
+    # for item in b['Video_name'][0:10]:
+    #     item = item.replace("-camera-0", "")
+    #     file_list1 = search_csv(
+    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min/new_results/BeAMapping-replace",
+    #         name="{}_Movement_Labels".format(item))
+    #     file_list_2.append(file_list1)
+    # file_list_2 = list(np.ravel(file_list_2))
+    #
+    # behavior_all = []
+    # for item in file_list_1:
+    #     f = pd.read_csv(item)
+    #     """
+    #         pandas计算步骤
+    #     """
+    #     for time in range(0, len(f), 9000 * 2):
+    #         class_type = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0,
+    #                       9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 0}
+    #
+    #         for i in range(time, time + 9000 * 2 - 1):  # i: start time --> end time
+    #             if int(f.iloc[i, 1:2]) not in class_type:
+    #                 class_type[int(f.iloc[i, 1:2])] = 0
+    #             else:
+    #                 class_type[int(f.iloc[i, 1:2])] += 1
+    #         # print(class_type)
+    #         behavior_fre = list(class_type.values())
+    #         behavior_all.append(behavior_fre)
+    #         # print(behavior_all)
+    #         print('第{}分钟已计算完'.format(time / 1800))
+    # final_list = []
+    # for x in range(0, 6):
+    #     ten_minute_list = []
+    #     for j in range(x, len(behavior_all), 6):
+    #         ten_minute_list.append(behavior_all[j])
+    #     # ten_minute_array = np.array(ten_minute_list)
+    #     # ten_minute_data = pd.DataFrame(ten_minute_array)
+    #     final_list.append(ten_minute_list)
+    #
+    # final_list_array = np.array(final_list).reshape(60, 16)
+    # final_data = pd.DataFrame(final_list_array)
+    # row_index = [['0~10min'] * 10, ['11~20min'] * 10, ['21~30min'] * 10,
+    #              ['31~40min'] * 10, ['41~50min'] * 10, ['51~60min'] * 10]
+    # row_index = list(np.ravel(row_index))
+    # final_data.index = [row_index]
+    # """
+    #     求取behavior_numbers的数量
+    # """
+    # behavior_num = list((final_data == 0).astype(int).sum(axis=1))
+    # behavior_num = (16 - np.array(behavior_num)).tolist()
+    # final_data['behavior_numbers'] = behavior_num
+    # final_data.to_csv('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/SP_behavior'
+    #                   '/SP_behavior_Male.csv')
+
+    """
+        归一化代码
+    """
+    # all_value = pd.read_excel('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre'
+    #                           '/SP_behavior/SP_Wake_rorr.xlsx')
+    # del all_value['Unnamed: 0']
+    # all_value2 = (all_value - all_value.min()) / (all_value.max() - all_value.min())  # 归一化代码
+    # all_value2.to_csv('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/SP_behavior'
+    #                   '/SP_Wake_rorr_norm.csv')

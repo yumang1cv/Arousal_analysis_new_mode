@@ -112,7 +112,153 @@ def sort_data(list_1):
 
 if __name__ == '__main__':
     """
-        Wakefulness状态
+        SP Arousal 60min
+    """
+    # """
+    #     Wakefulness状态
+    # """
+    # a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
+    #              name="video_info.xlsx", column="looming_time1", state_name="Male_Wakefulness")  # Male_Wakefulness
+    # file_list_1 = []
+    # for item in a['Video_name'][0:10]:
+    #     item = item.replace("-camera-0", "")
+    #     file_list1 = search_csv(
+    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
+    #              r"/BeAMapping",
+    #         name="{}_Movement_Labels".format(item))
+    #     file_list_1.append(file_list1)
+    # file_list_1 = list(np.ravel(file_list_1))
+    #
+    # b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
+    #              name="video_info.xlsx", column="looming_time1", state_name="Female_Wakefulness")  # Female_Wakefulness
+    # file_list_2 = []
+    # for item in b['Video_name'][0:10]:
+    #     item = item.replace("-camera-0", "")
+    #     file_list1 = search_csv(
+    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
+    #              r"/BeAMapping",
+    #         name="{}_Movement_Labels".format(item))
+    #     file_list_2.append(file_list1)
+    # file_list_2 = list(np.ravel(file_list_2))
+    #
+    # Male_list = []
+    # for i in range(len(file_list_1)):
+    #     sub_list1 = pre_data(file_list_1[i], a, i, state="looming_time2")
+    #     # print(sub_list1)
+    #     Male_list.append(sub_list1)
+    # # Male_list = sort_data(Male_list)
+    #
+    # Female_list = []
+    # for i in range(len(file_list_2)):
+    #     sub_list2 = pre_data(file_list_2[i], b, i, state="looming_time2")
+    #     # print(sub_list2)
+    #     Female_list.append(sub_list2)
+    # # Female_list = sorted(Female_list)
+    # # Female_list = sort_data(Female_list)
+    #
+    # Wake = Male_list + Female_list
+    # Wake = pd.DataFrame(Wake)
+    #
+    # """
+    #     主成分分析
+    # """
+    # # pca = PCA(n_components=3)
+    # # Wake_pca = pca.fit(Wake.T)
+    # # print(pca.explained_variance_ratio_)
+    # # Wake1 = Wake_pca.components_.T
+    # # Wake1 = pd.DataFrame(Wake1)
+    # # Wake1.to_csv('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/correlation/wake.csv')
+    #
+    # """
+    #     RORR状态
+    # """
+    # c = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
+    #              name="video_info.xlsx", column="looming_time1", state_name="Male_RoRR")  # Male_Wakefulness
+    # file_list_3 = []
+    # for item in c['Video_name'][0:10]:
+    #     item = item.replace("-camera-0", "")
+    #     file_list3 = search_csv(
+    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
+    #              r"/BeAMapping",
+    #         name="{}_Movement_Labels".format(item))
+    #     file_list_3.append(file_list3)
+    # file_list_3 = list(np.ravel(file_list_3))
+    #
+    # d = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
+    #              name="video_info.xlsx", column="looming_time1", state_name="Female_RoRR")  # Male_Wakefulness
+    # file_list_4 = []
+    # for item in d['Video_name'][0:10]:
+    #     item = item.replace("-camera-0", "")
+    #     file_list4 = search_csv(
+    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
+    #              r"/BeAMapping",
+    #         name="{}_Movement_Labels".format(item))
+    #     file_list_4.append(file_list4)
+    # file_list_4 = list(np.ravel(file_list_4))
+    #
+    # for j in range(2, 14, 2):
+    #     state = 'looming_time{}'.format(j)
+    #
+    #     Male_RORR = []
+    #     for i in range(len(file_list_3)):
+    #         sub_list3 = pre_data(file_list_3[i], c, i, state=state)
+    #         # print(sub_list2)
+    #         Male_RORR.append(sub_list3)
+    #     # Male_RORR = sort_data(Male_RORR)
+    #
+    #     Female_RORR = []
+    #     for i in range(len(file_list_4)):
+    #         sub_list4 = pre_data(file_list_4[i], d, i, state=state)
+    #         # print(sub_list2)
+    #         Female_RORR.append(sub_list4)
+    #     # Female_RORR = sort_data(Female_RORR)
+    #
+    #     RORR = Male_RORR + Female_RORR
+    #     RORR = sort_data(RORR)
+    #
+    #     """
+    #         主成分分析
+    #     """
+    #     # RORR = pd.DataFrame(RORR)
+    #     # pca = PCA(n_components=3)
+    #     # RORR_pca = pca.fit(RORR.T)
+    #     # print(pca.explained_variance_ratio_)
+    #     # RORR1 = RORR_pca.components_.T
+    #     # RORR1 = pd.DataFrame(RORR1)
+    #     # RORR1.to_csv('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/correlation/RORR_{}min.csv'.format(j * 5))
+    #
+    #     # all_list = Male_list + Female_list + Female_list2 + Female_list3
+    #     all_list = Wake + RORR
+    #
+    #     X = np.corrcoef(all_list)
+    #     # ax = sns.heatmap(X, center=0, cmap="YlGnBu")
+    #
+    #     # sort_list = sort_data(all_list)
+    #     # x_ticks = ['', '', '', 'Wakefulness', '', '', '', '', '', '', 'RoRR', '', '', '', ]
+    #     # y_ticks = ['Wakefulness', 'RoRR']
+    #     """
+    #         计算相关性，绘制热图
+    #     """
+    #     X = np.corrcoef(all_list)
+    #     fig, ax = plt.subplots(figsize=(7, 6), dpi=300)
+    #     # ax = sns.heatmap(X, center=0, cmap="Spectral", yticklabels=False, xticklabels=False, vmin=-1, vmax=1)
+    #     ax = sns.heatmap(X, center=0, cmap="vlag", yticklabels=False, xticklabels=False, vmin=-1, vmax=1)
+    #     # ax.set_xticklabels(['Wakefulness', 'RoRR'])
+    #
+    #     cbar = ax.collections[0].colorbar
+    #     # here set the labelsize by 20
+    #     cbar.ax.tick_params(labelsize=25)
+    #     plt.tight_layout()
+    #     plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/correlation'
+    #                 '/SP_behavior_Wake_{}min_v2.tiff'.format(j * 5), dpi=300)
+    #     plt.show()
+    #     plt.close()
+
+    """
+        SP behavior 60min corr SP Arousal 60min
+    """
+    """
+            Wakefulness状态
     """
     a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
                  name="video_info.xlsx", column="looming_time1", state_name="Male_Wakefulness")  # Male_Wakefulness
@@ -155,16 +301,6 @@ if __name__ == '__main__':
 
     Wake = Male_list + Female_list
     Wake = pd.DataFrame(Wake)
-
-    """
-        主成分分析
-    """
-    # pca = PCA(n_components=3)
-    # Wake_pca = pca.fit(Wake.T)
-    # print(pca.explained_variance_ratio_)
-    # Wake1 = Wake_pca.components_.T
-    # Wake1 = pd.DataFrame(Wake1)
-    # Wake1.to_csv('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/correlation/wake.csv')
 
     """
         RORR状态
@@ -212,17 +348,6 @@ if __name__ == '__main__':
 
         RORR = Male_RORR + Female_RORR
         RORR = sort_data(RORR)
-
-        """
-            主成分分析
-        """
-        # RORR = pd.DataFrame(RORR)
-        # pca = PCA(n_components=3)
-        # RORR_pca = pca.fit(RORR.T)
-        # print(pca.explained_variance_ratio_)
-        # RORR1 = RORR_pca.components_.T
-        # RORR1 = pd.DataFrame(RORR1)
-        # RORR1.to_csv('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/correlation/RORR_{}min.csv'.format(j * 5))
 
         # all_list = Male_list + Female_list + Female_list2 + Female_list3
         all_list = Wake + RORR
