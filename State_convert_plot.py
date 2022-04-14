@@ -8,7 +8,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from mpl_chord_diagram import chord_diagram
 from matplotlib.colors import ListedColormap, LinearSegmentedColormap
-
+import matplotlib
+matplotlib.use('Qt5Agg')
 sys.path.append(os.path.abspath(".."))
 
 # color_list = ['#845EC2', '#B39CD0', '#D65DB1', '#4FFBDF', '#FFC75F',
@@ -145,6 +146,9 @@ def normalize_2d(matrix):
 
 
 if __name__ == '__main__':
+    """
+        SP Arousal 60min
+    """
     a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
                  name="video_info.xlsx", column="looming_time1", state_name="Female_RoRR")  # Male_Wakefulness
 
@@ -170,6 +174,32 @@ if __name__ == '__main__':
             name="{}_Movement_Labels".format(item))
         file_list_2.append(file_list1)
     file_list_2 = list(np.ravel(file_list_2))
+    """
+        SP behavior 60min
+    """
+    # a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min',
+    #              name="video_info.xlsx", column="looming_time1", state_name="Male_Wakefulness")  # Male_Wakefulness
+    #
+    # file_list_1 = []
+    # for item in a['Video_name'][0:10]:
+    #     item = item.replace("-camera-0", "")
+    #     file_list1 = search_csv(
+    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min/new_results/BeAMapping-replace",
+    #         name="{}_Movement_Labels".format(item))
+    #     file_list_1.append(file_list1)
+    # file_list_1 = list(np.ravel(file_list_1))
+    #
+    # b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min',
+    #              name="video_info.xlsx", column="looming_time1", state_name="Female_Wakefulness")  # Female_Wakefulness
+    #
+    # file_list_2 = []
+    # for item in b['Video_name'][0:10]:
+    #     item = item.replace("-camera-0", "")
+    #     file_list1 = search_csv(
+    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min/new_results/BeAMapping-replace",
+    #         name="{}_Movement_Labels".format(item))
+    #     file_list_2.append(file_list1)
+    # file_list_2 = list(np.ravel(file_list_2))
 
     """
         test code
@@ -300,7 +330,7 @@ if __name__ == '__main__':
     file_list = file_list_2
     dataframe = b
     mouse_state = 'RORR'
-    looming_time = 13
+    looming_time = 14
     Male_data = np.zeros((16, 16))
     Female_data = np.zeros((16, 16))
     for x in range(2, looming_time, 2):  # 调整间隔时长：5min/10min
@@ -323,7 +353,7 @@ if __name__ == '__main__':
         all_data = Male_data + Female_data
 
         del_data, names, colors = del_pre_data(all_data)
-
+        all_data = np.zeros((16, 16))
         color = ListedColormap(colors)
         fig = plt.figure(figsize=(5, 5), dpi=300)
         ax = fig.add_subplot(111)
@@ -339,6 +369,6 @@ if __name__ == '__main__':
         plt.ylabel('Fraction', fontsize=15)
         plt.tight_layout()
         plt.show()
-        plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_convert'
-                    '/SP_Arousal_add/All_{}{}_10min.tiff'.format(mouse_state, int(x / 2)), dpi=300)
+        plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_convert/SP_Arousal_add'
+                    '/all_v3/All_{}{}_10min.tiff'.format(mouse_state, int(x / 2)), dpi=300)
         plt.close()

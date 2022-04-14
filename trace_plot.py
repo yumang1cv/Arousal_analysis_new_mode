@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 import math
 from sklearn import preprocessing
+import matplotlib
+matplotlib.use('Qt5Agg')
 
 
 def search_csv(path=".", name=""):  # 抓取csv文件
@@ -136,62 +138,65 @@ def line_plot(ax1, line_width, color=''):
 
 
 if __name__ == '__main__':
-    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
-                 name="video_info.xlsx", column="looming_time1", state_name="Female_Wakefulness")  # Male_Wakefulness
-
-    file_list_1 = []
-    for item in a['Video_name'][0:8]:
-        item = item.replace("-camera-0", "")
-        file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
-                 r"/3Dskeleton/Calibrated_3DSkeleton",
-            name="{}_Cali_Data3d".format(item))
-        file_list_1.append(file_list1)
-    file_list_1 = list(np.ravel(file_list_1))
-
-    for x in range(2, 4, 2):
-        # x = 1
-        row_name = 'looming_time{}'.format(x)
-        for num in range(1, 2, 1):
-            # num = 1
-            """
-            race_data(dataframe, file_list, be_looming_time, after_looming_time, num, rotation, row_name='')
-            """
-            data = trace_data(a, file_list_1, 600, 0, num, 4.5, row_name=row_name)
-
-            fig = plt.figure(figsize=(3, 3), dpi=300)
-            ax = fig.add_subplot(111)
-            # figure = plt.figure(figsize=(3, 3), dpi=300)
-
-            # ax = sns.scatterplot(data=data, x="rotation_x", y="rotation_y", alpha=1)
-            # sns.scatterplot(data=df1.iloc[start_time[num]:end_time[num]], x="rotation_x", y="rotation_y")
-            ax.plot(data['rotation_x'].iloc[start_time[num]:end_time[num]],
-                    data['rotation_y'].iloc[start_time[num]:end_time[num]], color='black', linewidth=1)
-            '''
-                color:
-                Wakefulness: '#f2b67c'
-                RORR: '#808080'
-                post-RORR1: '#8aaad2'
-                # post-RORR2: '#d3d3d3'
-                11~15min: '#cbc2a0'
-                16~20min: '#9c7abb'
-                post-RORR3: '#d6afaf'
-                color_list_shadow = ['#a8a8a8', '#9ba7ca', '#c29799']
-                color_list_line = ['#000000', '#0c5172', '#851717']
-            '''
-
-            # plt a circle
-            # x = data['rotation_x'].iloc[start_time[num] + 180:start_time[num] + 181]
-            # y = data['rotation_y'].iloc[start_time[num] + 180:start_time[num] + 181]
-            # plt.scatter(x, y, s=200, facecolors='none', edgecolors='red')
-            color = '#d6afaf'
-            line_plot(ax, 1, color=color)
-            plt.axis('off')
-            plt.show()
-            plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/Guiji/SP_Arousal_add'
-                        '/{}_{}.tiff'.format(file_list_1[num][-39:-16], row_name), dpi=300)
-            plt.close()
-            # print(num, row_name)
+    """
+        SP Arousal 60min
+    """
+    # a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
+    #              name="video_info.xlsx", column="looming_time1", state_name="Female_RoRR")  # Male_Wakefulness
+    #
+    # file_list_1 = []
+    # for item in a['Video_name'][0:8]:
+    #     item = item.replace("-camera-0", "")
+    #     file_list1 = search_csv(
+    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
+    #              r"/3Dskeleton/Calibrated_3DSkeleton",
+    #         name="{}_Cali_Data3d".format(item))
+    #     file_list_1.append(file_list1)
+    # file_list_1 = list(np.ravel(file_list_1))
+    #
+    # for x in range(2, 14, 2):
+    #     # x = 1
+    #     row_name = 'looming_time{}'.format(x)
+    #     for num in range(1, 2, 1):
+    #         # num = 1
+    #         """
+    #         race_data(dataframe, file_list, be_looming_time, after_looming_time, num, rotation, row_name='')
+    #         """
+    #         data = trace_data(a, file_list_1, 600, 0, num, 4.5, row_name=row_name)
+    #
+    #         fig = plt.figure(figsize=(4, 6), dpi=300)
+    #         ax = fig.add_subplot(111)
+    #         # figure = plt.figure(figsize=(3, 3), dpi=300)
+    #
+    #         # ax = sns.scatterplot(data=data, x="rotation_x", y="rotation_y", alpha=1)
+    #         # sns.scatterplot(data=df1.iloc[start_time[num]:end_time[num]], x="rotation_x", y="rotation_y")
+    #         ax.plot(data['rotation_x'].iloc[start_time[num]:end_time[num]],
+    #                 data['rotation_y'].iloc[start_time[num]:end_time[num]], color='black', linewidth=1)
+    #         '''
+    #             color:
+    #             Wakefulness: '#f2b67c'
+    #             RORR: '#808080'
+    #             post-RORR1: '#8aaad2'
+    #             # post-RORR2: '#d3d3d3'
+    #             11~15min: '#cbc2a0'
+    #             16~20min: '#9c7abb'
+    #             post-RORR3: '#d6afaf'
+    #             color_list_shadow = ['#a8a8a8', '#9ba7ca', '#c29799']
+    #             color_list_line = ['#000000', '#0c5172', '#851717']
+    #         '''
+    #
+    #         # plt a circle
+    #         # x = data['rotation_x'].iloc[start_time[num] + 180:start_time[num] + 181]
+    #         # y = data['rotation_y'].iloc[start_time[num] + 180:start_time[num] + 181]
+    #         # plt.scatter(x, y, s=200, facecolors='none', edgecolors='red')
+    #         color = '#d6afaf'
+    #         line_plot(ax, 1, color=color)
+    #         plt.axis('off')
+    #         plt.show()
+    #         plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/Guiji/SP_Arousal_add'
+    #                     '/{}_{}_v2.tiff'.format(file_list_1[num][-39:-16], row_name), dpi=300)
+    #         plt.close()
+    #         # print(num, row_name)
 
     """
         批量代码
@@ -239,3 +244,63 @@ if __name__ == '__main__':
     #                     '/{}_{}.tiff'.format(file_list_1[num][-39:-16], row_name), dpi=300)
     #         plt.close()
     #         # print(num, row_name)
+
+    """
+        SP behavior 60min
+    """
+    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min',
+                 name="video_info.xlsx", column="looming_time1", state_name="Male_Wakefulness")  # Male_Wakefulness
+
+    file_list_1 = []
+    for item in a['Video_name'][0:8]:
+        item = item.replace("-camera-0", "")
+        file_list1 = search_csv(
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min/new_results/3Dskeleton"
+                 r"/Calibrated_3DSkeleton",
+            name="{}_Cali_Data3d".format(item))
+        file_list_1.append(file_list1)
+    file_list_1 = list(np.ravel(file_list_1))
+
+    for x in range(2, 14, 2):
+        # x = 1
+        row_name = 'looming_time{}'.format(x)
+        for num in range(4, 5, 1):
+            # num = 1
+            """
+            race_data(dataframe, file_list, be_looming_time, after_looming_time, num, rotation, row_name='')
+            """
+            data = trace_data(a, file_list_1, 600, 0, num, 4.3, row_name=row_name)
+
+            fig = plt.figure(figsize=(4, 6), dpi=300)
+            ax = fig.add_subplot(111)
+            # figure = plt.figure(figsize=(3, 3), dpi=300)
+
+            # ax = sns.scatterplot(data=data, x="rotation_x", y="rotation_y", alpha=1)
+            # sns.scatterplot(data=df1.iloc[start_time[num]:end_time[num]], x="rotation_x", y="rotation_y")
+            ax.plot(data['rotation_x'].iloc[start_time[num]:end_time[num]],
+                    data['rotation_y'].iloc[start_time[num]:end_time[num]], color='black', linewidth=1)
+            '''
+                color:
+                Wakefulness: '#f2b67c'
+                RORR: '#808080'
+                post-RORR1: '#8aaad2'
+                # post-RORR2: '#d3d3d3'
+                11~15min: '#cbc2a0'
+                16~20min: '#9c7abb'
+                post-RORR3: '#d6afaf'
+                color_list_shadow = ['#a8a8a8', '#9ba7ca', '#c29799']
+                color_list_line = ['#000000', '#0c5172', '#851717']
+            '''
+
+            # plt a circle
+            # x = data['rotation_x'].iloc[start_time[num] + 180:start_time[num] + 181]
+            # y = data['rotation_y'].iloc[start_time[num] + 180:start_time[num] + 181]
+            # plt.scatter(x, y, s=200, facecolors='none', edgecolors='red')
+            color = '#8aaad2'
+            line_plot(ax, 1, color=color)
+            plt.axis('off')
+            plt.show()
+            plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/Guiji/SP_Arousal_add'
+                        '/{}_{}_v2.tiff'.format(file_list_1[num][-39:-16], row_name), dpi=300)
+            plt.close()
+            # print(num, row_name)
