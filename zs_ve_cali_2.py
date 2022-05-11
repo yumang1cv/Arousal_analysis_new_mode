@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from scipy.signal import savgol_filter
 import matplotlib
 
+matplotlib.use('Qt5Agg')
 '''
     color:
     Wakefulness: '#f2b67c'
@@ -153,15 +154,128 @@ def single_sns_data(dataframe, file_list, num, be_looming_time, after_looming_ti
 
 
 if __name__ == '__main__':
-    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
-                 name="video_info.xlsx", column="looming_time1", state_name="Female_Wakefulness")  # Male_Wakefulness
+    """
+        速度柱状图
+    """
+    # a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
+    #              name="video_info.xlsx", column="looming_time1", state_name="Female_Wakefulness")  # Male_Wakefulness
+    #
+    # file_list_1 = []
+    # for item in a['Video_name'][0:10]:
+    #     item = item.replace("-camera-0", "")
+    #     file_list1 = search_csv(
+    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
+    #              r"/3Dskeleton/Calibrated_3DSkeleton",
+    #         name="{}_Cali_Data3d".format(item))
+    #     file_list_1.append(file_list1)
+    # file_list_1 = list(np.ravel(file_list_1))
+    # #
+    # # sns_data_1 = sns_data(a, file_list_1, 7, 53, typename="Male_Wakefulness", row_name='looming_time1')
+    # # # csv_result.clear()
+    # #
+    # b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
+    #              name="video_info.xlsx", column="looming_time1", state_name="Female_RoRR")
+    # file_list_2 = []
+    # for item in b['Video_name'][0:10]:
+    #     item = item.replace("-camera-0", "")
+    #     file_list2 = search_csv(
+    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
+    #              r"/3Dskeleton/Calibrated_3DSkeleton",
+    #         name="{}_Cali_Data3d".format(item))
+    #     file_list_2.append(file_list2)
+    # file_list_2 = list(np.ravel(file_list_2))
+    # #
+    # # sns_data_2 = sns_data(b, file_list_2, 7, 53, typename="Female_RoRR_1", row_name='looming_time1')
+    # # sns_data_3 = sns_data(b, file_list_2, 5, 55, typename="Female_RoRR_2", row_name='looming_time2')
+    # # sns_data_4 = sns_data(b, file_list_2, 3, 57, typename="Female_RoRR_3", row_name='looming_time3')
+    # # # sns_data = sns_data_1.append(sns_data_4)
+    # # # sns_data = pd.concat([sns_data_1, sns_data_2, sns_data_3, sns_data_4])
+    # # sns_data = pd.concat([sns_data_2, sns_data_1, sns_data_4])
+    #
+    # '''
+    #     单只典型鼠
+    # '''
+    # num = 1
+    # # file_path = file_list_1[0]
+    # # sns_data_0 = single_sns_data(a, file_list_1[num], num, 4, 56,
+    # #                              typename="Wakefulness", row_name='looming_time1')
+    # # sns_data_1 = single_sns_data(b, file_list_2[num], num, 9, 51,
+    # #                              typename="Female_RoRR_3", row_name='looming_time1')
+    # # sns_data_2 = single_sns_data(b, file_list_2[num], num, 7, 53,
+    # #                              typename="Female_RoRR_1", row_name='looming_time2')
+    # # sns_data_3 = single_sns_data(b, file_list_2[num], num, 7, 53,
+    # #                              typename="Female_RoRR_2", row_name='looming_time3')
+    # # sns_data_4 = single_sns_data(b, file_list_2[num], num, 7, 53,
+    # #                              typename="Female_RoRR_4", row_name='looming_time4')
+    #
+    # # sns_data_0 = single_sns_data(a, file_list_1[num], num, 299, 0,
+    # #                              row_name='looming_time1')
+    # # sns_data_1 = single_sns_data(b, file_list_2[num], num, 299, 0,
+    # #                              row_name='looming_time1')
+    # # sns_data_2 = single_sns_data(b, file_list_2[num], num, 299, 0,
+    # #                              row_name='looming_time2')
+    # # sns_data_3 = single_sns_data(b, file_list_2[num], num, 299, 0,
+    # #                              row_name='looming_time3')
+    # # sns_data_4 = single_sns_data(b, file_list_2[num], num, 299, 0,
+    # #                              row_name='looming_time4')
+    # # sns_data_5 = single_sns_data(b, file_list_2[num], num, 299, 0,
+    # #                              row_name='looming_time5')
+    # for x in range(11, 12, 1):
+    #     # x = 1
+    #     row_name = 'looming_time{}'.format(x)
+    #     sns_data_1 = single_sns_data(b, file_list_2[num], num, 299, 0,
+    #                                  row_name=row_name)
+    #
+    #     # sns_data = pd.concat([sns_data_0, sns_data_1, sns_data_2, sns_data_3, sns_data_4])
+    #     # sns_data = pd.concat([sns_data_1, sns_data_2, sns_data_3])
+    #     color_list_shadow = ['#a8a8a8', '#9ba7ca', '#c29799']
+    #     # color_list_line = ['#000000', '#0c5172', '#851717']
+    #     color_list_line = ['#851717']
+    #     fig = plt.figure(figsize=(5, 2), dpi=300)
+    #
+    #     ax = sns.barplot(x="time", y="value", data=sns_data_1, color='#d6afaf')
+    #
+    #     # # sns.lineplot(data=sns_data_0, x="time", y="value", hue='type', palette=color_list_line)
+    #     # ax = sns.lineplot(data=sns_data_4, x="time", y="value", color='#f2b67c', linewidth=4)
+    #     # # sns.lineplot(data=sns_data, x="time", y="value", hue='type')
+    #     # plt.axvspan(150, 300, color='gray', alpha=0.3, lw=0)
+    #     # plt.rcParams.update({'font.family': 'Arial'})
+    #     # x = [i for i in range(0, 1801, 300)]
+    #     # labels = ['0', '10', '20', '30', '40', '50', '60']
+    #     plt.ylim(0, 15, 5)
+    #     # plt.xticks(x, labels, fontsize=24)
+    #     # plt.yticks([0, 5, 10, 15, 20], fontsize=24)
+    #     # plt.legend(fontsize=6)
+    #     # plt.xlabel('Time (s)', fontsize=26)
+    #     # plt.ylabel('Speed (cm/s)', fontsize=26)
+    #     # # plt.title("Male-15 velocity after looming stimulate", fontsize=8)
+    #     # # plt.title("Male-15 velocity after looming stimulate during RORR", fontsize=8)
+    #     # # plt.title("Wakefulness", fontsize=8)
+    #     # # figure.subplots_adjust(bottom=0.2, right=0.8, top=0.9)
+    #     # ax.spines['top'].set_visible(False)
+    #     # ax.spines['right'].set_visible(False)
+    #     # ax.spines['bottom'].set_linewidth(3.5)
+    #     # ax.spines['left'].set_linewidth(3.5)
+    #     plt.axis('off')
+    #     plt.tight_layout()
+    #
+    #     plt.show()
+    #     # plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/velocity/SP_Arousal_add'
+    #     #             '/F_2_{}.tiff'.format(row_name), dpi=300)
+    #     # plt.close()
+
+
+    """
+        速度折线图
+    """
+    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
+                 name="video_info.xlsx", column="looming_time1", state_name="Male_Wakefulness")  # Male_Wakefulness
 
     file_list_1 = []
-    for item in a['Video_name'][0:10]:
+    for item in a['Video_name'][0:9]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
-                 r"/3Dskeleton/Calibrated_3DSkeleton",
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/3Dskeleton/Calibrated_3DSkeleton",
             name="{}_Cali_Data3d".format(item))
         file_list_1.append(file_list1)
     file_list_1 = list(np.ravel(file_list_1))
@@ -169,14 +283,13 @@ if __name__ == '__main__':
     # sns_data_1 = sns_data(a, file_list_1, 7, 53, typename="Male_Wakefulness", row_name='looming_time1')
     # # csv_result.clear()
     #
-    b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
-                 name="video_info.xlsx", column="looming_time1", state_name="Female_RoRR")
+    b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
+                 name="video_info.xlsx", column="looming_time1", state_name="Male_RoRR")
     file_list_2 = []
     for item in b['Video_name'][0:10]:
         item = item.replace("-camera-0", "")
         file_list2 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
-                 r"/3Dskeleton/Calibrated_3DSkeleton",
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/3Dskeleton/Calibrated_3DSkeleton",
             name="{}_Cali_Data3d".format(item))
         file_list_2.append(file_list2)
     file_list_2 = list(np.ravel(file_list_2))
@@ -191,7 +304,7 @@ if __name__ == '__main__':
     '''
         单只典型鼠
     '''
-    num = 1
+    num = 4
     # file_path = file_list_1[0]
     # sns_data_0 = single_sns_data(a, file_list_1[num], num, 4, 56,
     #                              typename="Wakefulness", row_name='looming_time1')
@@ -216,10 +329,12 @@ if __name__ == '__main__':
     #                              row_name='looming_time4')
     # sns_data_5 = single_sns_data(b, file_list_2[num], num, 299, 0,
     #                              row_name='looming_time5')
-    for x in range(11, 12, 1):
+    for j in range(1, 2, 1):
         # x = 1
-        row_name = 'looming_time{}'.format(x)
-        sns_data_1 = single_sns_data(b, file_list_2[num], num, 299, 0,
+        row_name = 'looming_time{}'.format(j)
+        # sns_data_1 = single_sns_data(b, file_list_2[num], num, 6, 54,
+        #                              row_name=row_name)
+        sns_data_1 = single_sns_data(b, file_list_2[num], num, 9, 51,
                                      row_name=row_name)
 
         # sns_data = pd.concat([sns_data_0, sns_data_1, sns_data_2, sns_data_3, sns_data_4])
@@ -227,39 +342,38 @@ if __name__ == '__main__':
         color_list_shadow = ['#a8a8a8', '#9ba7ca', '#c29799']
         # color_list_line = ['#000000', '#0c5172', '#851717']
         color_list_line = ['#851717']
-        fig = plt.figure(figsize=(5, 2), dpi=300)
+        fig = plt.figure(figsize=(10, 8), dpi=300)
 
-        ax = sns.barplot(x="time", y="value", data=sns_data_1, color='#d6afaf')
+        # ax = sns.barplot(x="time", y="value", data=sns_data_1, color='#d6afaf')
 
-
-
-
-
-        # # sns.lineplot(data=sns_data_0, x="time", y="value", hue='type', palette=color_list_line)
-        # ax = sns.lineplot(data=sns_data_4, x="time", y="value", color='#f2b67c', linewidth=4)
-        # # sns.lineplot(data=sns_data, x="time", y="value", hue='type')
-        # plt.axvspan(150, 300, color='gray', alpha=0.3, lw=0)
-        # plt.rcParams.update({'font.family': 'Arial'})
-        # x = [i for i in range(0, 1801, 300)]
-        # labels = ['0', '10', '20', '30', '40', '50', '60']
-        plt.ylim(0, 15, 5)
-        # plt.xticks(x, labels, fontsize=24)
-        # plt.yticks([0, 5, 10, 15, 20], fontsize=24)
-        # plt.legend(fontsize=6)
-        # plt.xlabel('Time (s)', fontsize=26)
-        # plt.ylabel('Speed (cm/s)', fontsize=26)
-        # # plt.title("Male-15 velocity after looming stimulate", fontsize=8)
-        # # plt.title("Male-15 velocity after looming stimulate during RORR", fontsize=8)
-        # # plt.title("Wakefulness", fontsize=8)
-        # # figure.subplots_adjust(bottom=0.2, right=0.8, top=0.9)
-        # ax.spines['top'].set_visible(False)
-        # ax.spines['right'].set_visible(False)
-        # ax.spines['bottom'].set_linewidth(3.5)
-        # ax.spines['left'].set_linewidth(3.5)
-        plt.axis('off')
+        # sns.lineplot(data=sns_data_0, x="time", y="value", hue='type', palette=color_list_line)
+        ax = sns.lineplot(data=sns_data_1, x="time", y="value", color='black', linewidth=5)
+        # sns.lineplot(data=sns_data, x="time", y="value", hue='type')
+        plt.axvspan(150, 300, color='gray', alpha=0.3, lw=0)
+        plt.rcParams.update({'font.family': 'Arial'})
+        x = [i for i in range(0, 1801, 300)]
+        labels = ['0', '10', '20', '30', '40', '50', '60']
+        # plt.ylim(0, 15, 5)
+        plt.xticks(x, labels, fontsize=48)
+        plt.yticks([0, 5, 10, 15, 20], fontsize=48)
+        plt.legend(fontsize=6)
+        # plt.xlabel('Time (s)', fontsize=30)
+        # plt.ylabel('Speed (cm/s)', fontsize=30)
+        ax.set(xlabel=None)
+        ax.set(ylabel=None)
+        # plt.title("Male-15 velocity after looming stimulate", fontsize=8)
+        # plt.title("Male-15 velocity after looming stimulate during RORR", fontsize=8)
+        # plt.title("Wakefulness", fontsize=8)
+        # figure.subplots_adjust(bottom=0.2, right=0.8, top=0.9)
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.spines['bottom'].set_linewidth(3.5)
+        ax.spines['left'].set_linewidth(3.5)
+        ax.get_legend().remove()
+        # plt.axis('off')
         plt.tight_layout()
 
         plt.show()
-        plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/velocity/SP_Arousal_add'
-                    '/F_2_{}.tiff'.format(row_name), dpi=300)
+        plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/velocity/Male'
+                    '/M_15_RORR_{}_v3.tiff'.format(j), dpi=300)
         plt.close()

@@ -4,6 +4,7 @@ import numpy as np
 import seaborn as sns
 from sklearn.decomposition import PCA
 import matplotlib
+matplotlib.use('Qt5Agg')
 
 color_list = ['#845EC2', '#B39CD0', '#D65DB1', '#4FFBDF', '#FFC75F',
               '#D5CABD', '#B0A8B9', '#FF6F91', '#F9F871', '#D7E8F0',
@@ -20,6 +21,14 @@ color_list = ['#845EC2', '#B39CD0', '#D65DB1', '#4FFBDF', '#FFC75F',
     12、Grooming:[21]      (#E8575A)            13、Flight:[23, 38]    (#008B74)
     14、Running:[24, 36]   (#00C0A3)            15、LORR:[27, 28, 39]  (#FF9671)
     16、Stepping:[37]      (#93DEB1)
+"""
+
+"""
+    Locomotion : 4-Walking   11-Trotting  16-Stepping  14-Running  13-Flight  2-Left turning  1-Right turning
+    Exploration : 10-Standing  6-Climbing  7-Falling  3-Sniffing
+    Maintenance : 12-Grooming
+    Non-locomtion : 8-Immobility
+    Posture : 15-LORR  9-Paralysis  5-Trembling
 """
 
 behavior_labels = ['Right turning', 'Left turning', 'Sniffing', 'Walking', 'Trembling',
@@ -115,18 +124,21 @@ def pre_data(data, label_list):
 
 
 if __name__ == '__main__':
-
-    delete_list = group_2_index
-    labels = group_1
-    # labels = behavior_labels
-
-    df1 = del_data(df1, delete_list)
-    df2 = del_data(df2, delete_list)
-    df3 = del_data(df3, delete_list)
-    df4 = del_data(df4, delete_list)
-    df5 = del_data(df5, delete_list)
-    # df6 = del_data(df6, delete_list)
-    # df7 = del_data(df7, delete_list)
+    """
+        分组code
+    """
+    # delete_list = group_2_index
+    # labels = group_1
+    # # labels = behavior_labels
+    #
+    # df1 = del_data(df1, delete_list)
+    # df2 = del_data(df2, delete_list)
+    # df3 = del_data(df3, delete_list)
+    # df4 = del_data(df4, delete_list)
+    # df5 = del_data(df5, delete_list)
+    # # df6 = del_data(df6, delete_list)
+    # # df7 = del_data(df7, delete_list)
+    labels = behavior_labels
     """
         雷达图
     """
@@ -165,7 +177,7 @@ if __name__ == '__main__':
     fig, ax = plt.subplots(figsize=(10, 6), subplot_kw=dict(polar=True), dpi=300)
     plt.style.use('ggplot')
     # Draw the outline of our data.
-    ax.plot(angles1, values1, color='#7cb6bf', linewidth=1, label='Wakefulness')
+    ax.plot(angles1, values1, color='#d8b0b0', linewidth=1, label='Wakefulness')
     # Fill it in.
     # ax.fill(angles1, values1, color='#D65DB1', alpha=0.1)
 
@@ -181,14 +193,14 @@ if __name__ == '__main__':
     # ax.plot(angles6, values6, color='#7b374c', linewidth=1, label='41-50')
     # ax.plot(angles7, values7, color='#5d3f8a', linewidth=1, label='51-60')
 
-    ax.plot(angles2, values2, color='#59ccf3', linewidth=1, label="Stage 1")
+    ax.plot(angles2, values2, color='#bebebe', linewidth=1, label="Stage 1")
     # # Fill it in.
     # ax.fill(angles, values1, color='#0081CF', alpha=0.1)
     #
-    ax.plot(angles3, values3, color='#247aae', linewidth=1, label='Stage 2')
+    ax.plot(angles3, values3, color='#8babd3', linewidth=1, label='Stage 2')
     # # Fill it in.
     # ax.fill(angles, values2, color='#FFC75F', alpha=0.1)
-    ax.plot(angles4, values4, color='#d5aa84', linewidth=1, label='Stage 3')
+    ax.plot(angles4, values4, color='#808080', linewidth=1, label='Stage 3')
     ax.plot(angles5, values5, color='#f5a17b', linewidth=1, label='Stage 4')
 
     # Fix axis to go in the right order and start at 12 o'clock.
@@ -202,7 +214,7 @@ if __name__ == '__main__':
     #         labels.set_rotation(2*np.pi / 3 - angles)
 
     # Draw axis lines for each angle and label.
-    ax.set_thetagrids(np.degrees(angles1[0:len(angles1) - 1]), labels, fontsize=13, weight="bold")
+    ax.set_thetagrids(np.degrees(angles1[0:len(angles1) - 1]), labels, fontsize=15, weight="bold")
 
     # Go through labels and adjust alignment based on where
     # it is in the circle.
@@ -230,7 +242,7 @@ if __name__ == '__main__':
     # Change the color of the tick labels.
     ax.tick_params(colors='#222222')
 
-    ax.tick_params(axis='y', labelsize=7, color='#AAAAAA')
+    ax.tick_params(axis='y', labelsize=10, color='#AAAAAA')
 
     # Change the color of the circular gridlines.
     ax.grid(color='#AAAAAA', alpha=0.1)
@@ -239,18 +251,19 @@ if __name__ == '__main__':
 
     # Add a legend as well.
     # ax.legend(loc='upper right', bbox_to_anchor=(1.55, 1.15), fontsize=12, fancybox=True, framealpha=0.001)
-    ax.legend(loc='upper right', bbox_to_anchor=(1.55, 0.1), fontsize=13, fancybox=True, framealpha=0.001)
+    # ax.legend(loc='upper right', bbox_to_anchor=(1.55, 0.1), fontsize=15, fancybox=True, framealpha=0.001)
     plt.tight_layout()
     # plt.savefig(
-    #     "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart/FM_looming_V3"
-    #     ".tiff", dpi=300)
-    plt.savefig(
-        "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart/{}_group1_V4"
-        ".tiff".format(data), dpi=300, transparent=True)
+    #     "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart/FM_looming_V8"
+    #     ".tiff", dpi=300, transparent=True)
+    # plt.savefig(
+    #     "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart/{}_group1_V4"
+    #     ".tiff".format(data), dpi=300, transparent=True)
     plt.show()
-    plt.close()
+    # plt.close()
 
-    # R = 93
-    # G = 63
-    # B = 138
+    # import matplotlib
+    # R = 190
+    # G = 190
+    # B = 190
     # print(matplotlib.colors.to_hex([R / 255, G / 255, B / 255]))
