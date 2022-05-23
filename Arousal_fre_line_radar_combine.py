@@ -211,7 +211,7 @@ if __name__ == '__main__':
     # #
     # ax.plot(angles3, values3, color='#247aae', linewidth=1, label='11-20')
     # # # Fill it in.
-    # # ax.fill(angles, values2, color='#FFC75F', alpha=0.1)
+    # ax.fill(angles2, values2, color='#FFC75F', alpha=0.1)
     # ax.plot(angles4, values4, color='#d5aa84', linewidth=1, label='21-30')
     # ax.plot(angles5, values5, color='#f5a17b', linewidth=1, label='31-40')
     # ax.plot(angles6, values6, color='#7b374c', linewidth=1, label='41-50')
@@ -219,13 +219,14 @@ if __name__ == '__main__':
 
     ax.plot(angles2, values2, color='#bebebe', linewidth=1, label="Stage 1")
     # # Fill it in.
-    # ax.fill(angles, values1, color='#0081CF', alpha=0.1)
+    # ax.fill(angles3, values1, color='#0081CF', alpha=0.1)
     #
     ax.plot(angles3, values3, color='#8babd3', linewidth=1, label='Stage 2')
     # # Fill it in.
-    # ax.fill(angles, values2, color='#FFC75F', alpha=0.1)
+    # ax.fill(angles4, values4, color='#FFC75F', alpha=0.1)
     ax.plot(angles4, values4, color='#808080', linewidth=1, label='Stage 3')
     ax.plot(angles5, values5, color='#f5a17b', linewidth=1, label='Stage 4')
+    # ax.fill(angles5, values5, color='#f5a17b', alpha=0.1)
 
     # Fix axis to go in the right order and start at 12 o'clock.
     ax.set_theta_offset(np.pi / 2)
@@ -251,7 +252,7 @@ if __name__ == '__main__':
             label.set_horizontalalignment('right')
 
     # Ensure radar goes from 0 to 100.
-    # ax.set_ylim(0, 1500)
+    ax.set_ylim(0, 1800)
     # ax.set_ylim(0, 600)
     # plt.yticks(fontsize=28)
     # ax.set(ytickets=None)
@@ -269,7 +270,7 @@ if __name__ == '__main__':
     ax.tick_params(axis='y', labelsize=10, color='#AAAAAA')
 
     # Change the color of the circular gridlines.
-    ax.grid(color='#AAAAAA', alpha=0.1)
+    ax.grid(color='#AAAAAA', alpha=0.3)
     # Change the color of the outermost gridline (the spine).
     ax.spines['polar'].set_color('#222222')
 
@@ -280,7 +281,7 @@ if __name__ == '__main__':
 
     plt.savefig(
         "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart"
-        "/FM_looming_combine_V8.tiff", dpi=300, transparent=True)
+        "/FM_looming_combine_V10.tiff", dpi=300, transparent=True)
 
     # plt.savefig(
     #     "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart/{}_group1_V4"

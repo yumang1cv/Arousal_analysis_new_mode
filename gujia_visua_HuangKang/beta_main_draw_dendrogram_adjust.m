@@ -1,8 +1,8 @@
 %%
-genPath = genpath('C:/Users/12517/Desktop/PostAnalysis222(1)');
+genPath = genpath('D:/3D_behavior/Arousal_behavior/Arousal_result_all/code/gujia_visua_HuangKang');
 addpath(genPath)
 
-working_path = 'D:/3D_behavior/Arousal_behavior/Arousal_result_all';
+working_path = 'D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min/new_results';
 
 nfeatures = 16;
 selection = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14];
@@ -112,7 +112,7 @@ for i = 1:n_clus1
     figure(131)
 %     subplot(1, 2, 1); 
     hold on;
-    mouse_CloudXY(avg_skeleton, avg_coord, clus_energy, selection, temClus_aliXYZ, limXY, limZ, i)
+    mouse_CloudXZ(avg_skeleton, avg_coord, clus_energy, selection, temClus_aliXYZ, limXY, limZ, i)
     view([90, 90])
     print(gcf, '-djpeg', [save_path, '/', num2str(i), '_XY.jpg'], '-r300');
     savefig([save_path, '/', num2str(i), '_XY.fig']);
@@ -121,7 +121,7 @@ for i = 1:n_clus1
     figure(132)
 %     subplot(1, 2, 2); 
     hold on;
-    mouse_CloudXZ(avg_skeleton, avg_coord, clus_energy, selection, temClus_aliXYZ, limXY, limZ, i)
+    mouse_CloudXY(avg_skeleton, avg_coord, clus_energy, selection, temClus_aliXYZ, limXY, limZ, i)
     view([90, 90])
     print(gcf, '-djpeg', [save_path, '/', num2str(i), '_XZ.jpg'], '-r300');
     savefig([save_path, '/', num2str(i), '_XZ.fig']);
@@ -130,11 +130,11 @@ for i = 1:n_clus1
     figure(133)
 %     subplot(1, 2, 2);
     hold on;
-    mouse_CloudXZ(avg_skeleton, avg_coord, clus_energy, selection, temClus_aliXYZ, limXY, limZ, i)
+    mouse_CloudXY(avg_skeleton, avg_coord, clus_energy, selection, temClus_aliXYZ, limXY, limZ, i)
     view([90, 90])
     print(gcf, '-djpeg', [save_path, '/', num2str(i), '_XZ.jpg'], '-r300');
     savefig([save_path, '/', num2str(i), '_XZ.fig']);
-    close 132
+    close 133
 
 %     drawnow
     disp(['Plot figure: ', num2str(i), ' -> ', num2str(n_clus1)]);

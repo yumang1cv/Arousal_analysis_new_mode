@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 from mpl_chord_diagram import chord_diagram
 from matplotlib.colors import ListedColormap, LinearSegmentedColormap
 import matplotlib
+
 matplotlib.use('Qt5Agg')
 sys.path.append(os.path.abspath(".."))
 
@@ -127,10 +128,16 @@ def del_pre_data(data_list):
     names = ['Right turning', 'Left turning', 'Sniffing', 'Walking', 'Trembling', 'Climbing', 'Falling',
              'Immobility', 'Paralysis', 'Standing', 'Trotting', 'Grooming', 'Flight', 'Running', 'LORR', 'Stepping']
 
-    color_list = ['#845EC2', '#B39CD0', '#D65DB1', '#4FFBDF', '#FFC75F',
-                  '#D5CABD', '#B0A8B9', '#FF6F91', '#F9F871', '#D7E8F0',
-                  '#60DB73', '#E8575A', '#008B74', '#00C0A3', '#FF9671',
-                  '#93DEB1']
+    # color_list = ['#845EC2', '#B39CD0', '#D65DB1', '#4FFBDF', '#FFC75F',
+    #               '#D5CABD', '#B0A8B9', '#FF6F91', '#F9F871', '#D7E8F0',
+    #               '#60DB73', '#E8575A', '#008B74', '#00C0A3', '#FF9671',
+    #               '#93DEB1']
+
+    color_list = ['#A86A74', '#CB4042', '#FF6E00', '#EF8C92', '#89BDDE',
+                  '#FFB67F', '#FFC408', '#937DAD', '#478FB1', '#FFE2CC',
+                  '#EFB4C5', '#AACF7C', '#B34C5A', '#D35889', '#A8DBD9',
+                  '#EACAC9']
+
     for item in del_index:
         del names[item]
         del color_list[item]
@@ -327,6 +334,9 @@ if __name__ == '__main__':
     """
         Wake状态 所有老鼠数据
     """
+    # behavior_label = ['Right turning', 'Left turning', 'Sniffing', 'Walking', 'Trembling', 'Climbing', 'Falling',
+    #                   'Immobility', 'Paralysis', 'Standing', 'Trotting', 'Grooming', 'Flight', 'Running', 'LORR',
+    #                   'Stepping']
     file_list = file_list_2
     dataframe = b
     mouse_state = 'RORR'
@@ -364,11 +374,10 @@ if __name__ == '__main__':
                       chord_colors=colors, fontcolor="grey", ax=ax, fontsize=10)
 
         # str_grd = "_gradient" if grads[0] else ""
-
         plt.xlabel('Time (s)', fontsize=15)
         plt.ylabel('Fraction', fontsize=15)
         plt.tight_layout()
         plt.show()
         plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_convert/SP_Arousal_add'
-                    '/all_v3/All_{}{}_10min.tiff'.format(mouse_state, int(x / 2)), dpi=300)
+                    '/all_v4/All_{}{}_10min_v8.tiff'.format(mouse_state, int(x / 2)), dpi=300)
         plt.close()

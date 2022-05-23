@@ -245,7 +245,7 @@ if __name__ == '__main__':
     ax.tick_params(axis='y', labelsize=10, color='#AAAAAA')
 
     # Change the color of the circular gridlines.
-    ax.grid(color='#AAAAAA', alpha=0.1)
+    ax.grid(color='#AAAAAA', alpha=0.3)
     # Change the color of the outermost gridline (the spine).
     ax.spines['polar'].set_color('#222222')
 
@@ -253,14 +253,14 @@ if __name__ == '__main__':
     # ax.legend(loc='upper right', bbox_to_anchor=(1.55, 1.15), fontsize=12, fancybox=True, framealpha=0.001)
     # ax.legend(loc='upper right', bbox_to_anchor=(1.55, 0.1), fontsize=15, fancybox=True, framealpha=0.001)
     plt.tight_layout()
-    # plt.savefig(
-    #     "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart/FM_looming_V8"
-    #     ".tiff", dpi=300, transparent=True)
+    plt.savefig(
+        "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart/FM_looming_V10"
+        ".tiff", dpi=300, transparent=True)
     # plt.savefig(
     #     "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart/{}_group1_V4"
     #     ".tiff".format(data), dpi=300, transparent=True)
     plt.show()
-    # plt.close()
+    plt.close()
 
     # import matplotlib
     # R = 190
