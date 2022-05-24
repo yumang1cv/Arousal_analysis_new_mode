@@ -198,10 +198,11 @@ if __name__ == '__main__':
     # values7, angles7 = pre_data(df7, labels)
 
     # ax = plt.subplot(polar=True)
+    line_width = 2
     fig, ax = plt.subplots(figsize=(10, 6), subplot_kw=dict(polar=True), dpi=300)
     plt.style.use('ggplot')
     # Draw the outline of our data.
-    ax.plot(angles1, values1, color='#d8b0b0', linewidth=1, label='Wakefulness')
+    ax.plot(angles1, values1, color='#d8b0b0', linewidth=line_width, label='Wakefulness')
     # Fill it in.
     # ax.fill(angles1, values1, color='#D65DB1', alpha=0.1)
 
@@ -217,15 +218,15 @@ if __name__ == '__main__':
     # ax.plot(angles6, values6, color='#7b374c', linewidth=1, label='41-50')
     # ax.plot(angles7, values7, color='#5d3f8a', linewidth=1, label='51-60')
 
-    ax.plot(angles2, values2, color='#bebebe', linewidth=1, label="Stage 1")
+    ax.plot(angles2, values2, color='#bebebe', linewidth=line_width, label="Stage 1")
     # # Fill it in.
     # ax.fill(angles3, values1, color='#0081CF', alpha=0.1)
     #
-    ax.plot(angles3, values3, color='#8babd3', linewidth=1, label='Stage 2')
+    ax.plot(angles3, values3, color='#8babd3', linewidth=line_width, label='Stage 2')
     # # Fill it in.
     # ax.fill(angles4, values4, color='#FFC75F', alpha=0.1)
-    ax.plot(angles4, values4, color='#808080', linewidth=1, label='Stage 3')
-    ax.plot(angles5, values5, color='#f5a17b', linewidth=1, label='Stage 4')
+    ax.plot(angles4, values4, color='#808080', linewidth=line_width, label='Stage 3')
+    ax.plot(angles5, values5, color='#f5a17b', linewidth=line_width, label='Stage 4')
     # ax.fill(angles5, values5, color='#f5a17b', alpha=0.1)
 
     # Fix axis to go in the right order and start at 12 o'clock.
@@ -252,7 +253,7 @@ if __name__ == '__main__':
             label.set_horizontalalignment('right')
 
     # Ensure radar goes from 0 to 100.
-    ax.set_ylim(0, 1800)
+    ax.set_ylim(0, 1600)
     # ax.set_ylim(0, 600)
     # plt.yticks(fontsize=28)
     # ax.set(ytickets=None)
@@ -281,7 +282,7 @@ if __name__ == '__main__':
 
     plt.savefig(
         "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart"
-        "/FM_looming_combine_V10.tiff", dpi=300, transparent=True)
+        "/FM_looming_combine_V12.tiff", dpi=300, transparent=True)
 
     # plt.savefig(
     #     "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart/{}_group1_V4"

@@ -8,23 +8,24 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy.signal import savgol_filter
 import matplotlib
-
+matplotlib.use('Qt5Agg')
 # color_list = sns.color_palette("Spectral", 40)
-color_list = ['#845EC2', '#B39CD0', '#D65DB1', '#4FFBDF', '#FFC75F',
-              '#D5CABD', '#B0A8B9', '#FF6F91', '#F9F871', '#D7E8F0',
-              '#60DB73', '#E8575A', '#008B74', '#00C0A3', '#FF9671',
-              '#93DEB1']
+color_list = ['#A86A74', '#CB4042', '#FF6E00', '#EF8C92', '#89BDDE',
+              '#FFB67F', '#FFC408', '#937DAD', '#478FB1', '#FFE2CC',
+              '#EFB4C5', '#1d953f', '#B34C5A', '#D35889', '#A8DBD9',
+              '#EACAC9']
+
 """
-    Arousal Behavior Class Combine
-    1、Right turning:[1]  (#845EC2)             2、Left turning:[26]  (#B39CD0)
-    3、Sniffing:[2, 4, 10, 11, 12, 16, 22, 25]  (#D65DB1)
-    4、Walking:[3, 6, 7, 19, 30]  (#4FFBDF)     5、Trembling:[5, 15, 32, 40]  (#FFC75F)
-    6、Climbing:[8, 29]   (#D5CABD)             7、Falling:[9]         (#B0A8B9)
-    8、Immobility:[13, 20, 33, 34] (#FF6F91)    9、Paralysis:[14, 35]  (#F9F871)
-    10、Standing:[17]      (#D7E8F0)            11、Trotting:[18, 31]  (#60DB73)
-    12、Grooming:[21]      (#E8575A)            13、Flight:[23, 38]    (#008B74)
-    14、Running:[24, 36]   (#00C0A3)            15、LORR:[27, 28, 39]  (#FF9671)
-    16、Stepping:[37]      (#93DEB1)
+    New color: Arousal Behavior Class Combine
+    1、Right turning:[1]  (#A86A74)             2、Left turning:[26]  (#CB4042)
+    3、Sniffing:[2, 4, 10, 11, 12, 16, 22, 25]  (#FF6E00)
+    4、Walking:[3, 6, 7, 19, 30]  (#EF8C92)     5、Trembling:[5, 15, 32, 40]  (#89BDDE)
+    6、Climbing:[8, 29]   (#FFB67F)             7、Falling:[9]         (#FFC408)
+    8、Immobility:[13, 20, 33, 34] (#937DAD)    9、Paralysis:[14, 35]  (#478FB1)
+    10、Standing:[17]      (#FFE2CC)            11、Trotting:[18, 31]  (#EFB4C5)
+    12、Grooming:[21]      (#1d953f)            13、Flight:[23, 38]    (#B34C5A)
+    14、Running:[24, 36]   (#D35889)            15、LORR:[27, 28, 39]  (#A8DBD9)
+    16、Stepping:[37]      (#EACAC9)
 """
 
 
@@ -143,10 +144,10 @@ def pre_data(file_path, movement_label_num, special_time_start, special_time_end
 
 
 def data_combine(file_path, special_time_start, special_time_end):
-    special_time1 = special_time_start * 60 * 30
-    special_time2 = special_time_end * 60 * 30
-    # special_time1 = special_time_start
-    # special_time2 = special_time_end
+    # special_time1 = special_time_start * 60 * 30
+    # special_time2 = special_time_end * 60 * 30
+    special_time1 = special_time_start
+    special_time2 = special_time_end
     data = []
     for i in range(1, 17):
         behavior = pre_data(file_path, i, special_time1, special_time2)
@@ -181,18 +182,18 @@ if __name__ == '__main__':
         file_list_2.append(file_list1)
     file_list_2 = list(np.ravel(file_list_2))
 
-    time = 1
+    time = 2
 
     Male_data = []
     for i in range(0, len(file_list_1)):
-        single_data = data_combine(file_list_1[i], 2, 4)
-        # single_data = data_combine(file_list_1[i], a['looming_time{}'.format(1)][i], a['looming_time{}'.format(1)][i]+2* 1800)
+        # single_data = data_combine(file_list_1[i], 2, 4)
+        single_data = data_combine(file_list_1[i], a['looming_time{}'.format(time)][i], a['looming_time{}'.format(time)][i]+2* 1800)
         Male_data.append(single_data)
 
     Female_data = []
     for i in range(0, len(file_list_2)):
-        single_data = data_combine(file_list_2[i], 0, 2)
-        # single_data = data_combine(file_list_1[i], b['looming_time{}'.format(1)][i], b['looming_time{}'.format(1)][i] + 2 * 1800)
+        # single_data = data_combine(file_list_2[i], 0, 2)
+        single_data = data_combine(file_list_2[i], b['looming_time{}'.format(time)][i], b['looming_time{}'.format(time)][i] + 2 * 1800)
         Female_data.append(single_data)
 
     # plt.figure(figsize=(10, 3), dpi=300)
@@ -219,11 +220,11 @@ if __name__ == '__main__':
         ax.spines[axis].set_linewidth(1.5)
     plt.show()
 
-    # plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_space/SP_Arousal_add_60'
-    #             '/RoRR_all_V2.tiff', dpi=300)
-    # plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_space/SP_Arousal_2'
-    #             '/F2_RoRR_{}.tiff'.format((x+5)/5), dpi=300)
-    # plt.close()
+    # plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_space/looming/'
+    #             'Wake_looming{}_V8.tiff'.format(time), dpi=300)
+    plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_space/looming/'
+                'RORR_looming{}_V8.tiff'.format(time), dpi=300)
+    plt.close()
     # Female_data = []
     """
     

@@ -32,7 +32,7 @@ matplotlib.use('Qt5Agg')
 
 color_list = ['#A86A74', '#CB4042', '#FF6E00', '#EF8C92', '#89BDDE',
               '#FFB67F', '#FFC408', '#937DAD', '#478FB1', '#FFE2CC',
-              '#EFB4C5', '#AACF7C', '#B34C5A', '#D35889', '#A8DBD9',
+              '#EFB4C5', '#1d953f', '#B34C5A', '#D35889', '#A8DBD9',
               '#EACAC9']
 
 """
@@ -43,7 +43,7 @@ color_list = ['#A86A74', '#CB4042', '#FF6E00', '#EF8C92', '#89BDDE',
     6、Climbing:[8, 29]   (#FFB67F)             7、Falling:[9]         (#FFC408)
     8、Immobility:[13, 20, 33, 34] (#937DAD)    9、Paralysis:[14, 35]  (#478FB1)
     10、Standing:[17]      (#FFE2CC)            11、Trotting:[18, 31]  (#EFB4C5)
-    12、Grooming:[21]      (#AACF7C)            13、Flight:[23, 38]    (#B34C5A)
+    12、Grooming:[21]      (#1d953f)            13、Flight:[23, 38]    (#B34C5A)
     14、Running:[24, 36]   (#D35889)            15、LORR:[27, 28, 39]  (#A8DBD9)
     16、Stepping:[37]      (#EACAC9)
 """

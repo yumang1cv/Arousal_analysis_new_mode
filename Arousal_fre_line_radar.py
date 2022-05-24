@@ -35,7 +35,7 @@ behavior_labels = ['Right turning', 'Left turning', 'Sniffing', 'Walking', 'Trem
                    'Climbing', 'Falling', 'Immobility', 'Paralysis', 'Standing',
                    'Trotting', 'Grooming', 'Flight', 'Running', 'LORR', 'Stepping']
 
-group_1 = ['Walking', 'Climbing', 'Falling', 'Standing', 'Trotting', 'Flight', 'Running', 'Stepping']
+group_1 = ['Walking', 'Trotting', 'Stepping', 'Running', 'Flight', 'Left turning', 'Right turning']
 # group_1 = ['Walking', 'Trotting', 'Flight', 'Running', 'Stepping']
 group_1_index = []
 for item in group_1:
@@ -127,18 +127,19 @@ if __name__ == '__main__':
     """
         分组code
     """
-    # delete_list = group_2_index
-    # labels = group_1
-    # # labels = behavior_labels
-    #
-    # df1 = del_data(df1, delete_list)
-    # df2 = del_data(df2, delete_list)
-    # df3 = del_data(df3, delete_list)
-    # df4 = del_data(df4, delete_list)
-    # df5 = del_data(df5, delete_list)
+    delete_list = group_2_index
+    labels = group_1
+    # labels = behavior_labels
+
+    df1 = del_data(df1, delete_list)
+    df2 = del_data(df2, delete_list)
+    df3 = del_data(df3, delete_list)
+    df4 = del_data(df4, delete_list)
+    df5 = del_data(df5, delete_list)
     # # df6 = del_data(df6, delete_list)
     # # df7 = del_data(df7, delete_list)
-    labels = behavior_labels
+    # labels = behavior_labels
+    df5.iloc[:, 3:4] = 0
     """
         雷达图
     """
@@ -172,12 +173,12 @@ if __name__ == '__main__':
     values5, angles5 = pre_data(df5, labels)
     # values6, angles6 = pre_data(df6, labels)
     # values7, angles7 = pre_data(df7, labels)
-
+    line_width = 2
     # ax = plt.subplot(polar=True)
     fig, ax = plt.subplots(figsize=(10, 6), subplot_kw=dict(polar=True), dpi=300)
     plt.style.use('ggplot')
     # Draw the outline of our data.
-    ax.plot(angles1, values1, color='#d8b0b0', linewidth=1, label='Wakefulness')
+    ax.plot(angles1, values1, color='#d8b0b0', linewidth=line_width, label='Wakefulness')
     # Fill it in.
     # ax.fill(angles1, values1, color='#D65DB1', alpha=0.1)
 
@@ -193,15 +194,15 @@ if __name__ == '__main__':
     # ax.plot(angles6, values6, color='#7b374c', linewidth=1, label='41-50')
     # ax.plot(angles7, values7, color='#5d3f8a', linewidth=1, label='51-60')
 
-    ax.plot(angles2, values2, color='#bebebe', linewidth=1, label="Stage 1")
+    ax.plot(angles2, values2, color='#bebebe', linewidth=line_width, label="Stage 1")
     # # Fill it in.
     # ax.fill(angles, values1, color='#0081CF', alpha=0.1)
     #
-    ax.plot(angles3, values3, color='#8babd3', linewidth=1, label='Stage 2')
+    ax.plot(angles3, values3, color='#8babd3', linewidth=line_width, label='Stage 2')
     # # Fill it in.
     # ax.fill(angles, values2, color='#FFC75F', alpha=0.1)
-    ax.plot(angles4, values4, color='#808080', linewidth=1, label='Stage 3')
-    ax.plot(angles5, values5, color='#f5a17b', linewidth=1, label='Stage 4')
+    ax.plot(angles4, values4, color='#808080', linewidth=line_width, label='Stage 3')
+    ax.plot(angles5, values5, color='#f5a17b', linewidth=line_width, label='Stage 4')
 
     # Fix axis to go in the right order and start at 12 o'clock.
     ax.set_theta_offset(np.pi / 2)
@@ -227,8 +228,8 @@ if __name__ == '__main__':
             label.set_horizontalalignment('right')
 
     # Ensure radar goes from 0 to 100.
-    # ax.set_ylim(0, 1500)
-    # ax.set_ylim(0, 600)
+    # ax.set_ylim(0, 1400)
+    ax.set_ylim(0, 400)
     plt.yticks(fontsize=12)
     # ax.set(ytickets=None)
     # You can also set gridlines manually like this:
@@ -254,8 +255,8 @@ if __name__ == '__main__':
     # ax.legend(loc='upper right', bbox_to_anchor=(1.55, 0.1), fontsize=15, fancybox=True, framealpha=0.001)
     plt.tight_layout()
     plt.savefig(
-        "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart/FM_looming_V10"
-        ".tiff", dpi=300, transparent=True)
+        "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart"
+        "/FM_looming_Locomotion_v12.tiff", dpi=300, transparent=True)
     # plt.savefig(
     #     "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart/{}_group1_V4"
     #     ".tiff".format(data), dpi=300, transparent=True)
