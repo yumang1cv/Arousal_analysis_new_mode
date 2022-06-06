@@ -237,7 +237,7 @@ if __name__ == '__main__':
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
             path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
-                 r"/BeAMapping", name="{}_Movement_Labels".format(item))
+                 r"/BeAMapping_correct", name="{}_Movement_Labels".format(item))
         file_list_1.append(file_list1)
     file_list_1 = list(np.ravel(file_list_1))
 
@@ -250,12 +250,12 @@ if __name__ == '__main__':
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
             path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
-                 r"/BeAMapping", name="{}_Movement_Labels".format(item))
+                 r"/BeAMapping_correct", name="{}_Movement_Labels".format(item))
         file_list_2.append(file_list1)
     file_list_2 = list(np.ravel(file_list_2))
 
     behavior_all = []
-    for item in file_list_2:
+    for item in file_list_1:
         f = pd.read_csv(item)
         """
             pandas计算步骤
@@ -296,7 +296,7 @@ if __name__ == '__main__':
     behavior_num = (16 - np.array(behavior_num)).tolist()
     final_data['behavior_numbers'] = behavior_num
     final_data.to_csv('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/SP_behavior'
-                      '/SP_Arousal_Female.csv')
+                      '/SP_Arousal_Male_v2.csv')
 
     """
         SP behavior wake 行为个数

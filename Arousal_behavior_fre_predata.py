@@ -204,26 +204,26 @@ if __name__ == '__main__':
     """
         单组分分析
     """
-    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
+    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
                  name="video_info.xlsx", column="looming_time3", state_name="Male_RoRR")  # Male_Wakefulness
 
     file_list_1 = []
     for item in a['Video_name'][0:5]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2/BeAMapping_correct",
             name="{}_Movement_Labels".format(item))
         file_list_1.append(file_list1)
     file_list_1 = list(np.ravel(file_list_1))
 
-    b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
+    b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
                  name="video_info.xlsx", column="looming_time3", state_name="Female_Wakefulness")  # Female_Wakefulness
 
     file_list_2 = []
     for item in b['Video_name'][0:6]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2/BeAMapping_correct",
             name="{}_Movement_Labels".format(item))
         file_list_2.append(file_list1)
     file_list_2 = list(np.ravel(file_list_2))
@@ -268,8 +268,9 @@ if __name__ == '__main__':
         # print(behavior_all)
     final_data = pd.DataFrame(behavior_all)
 
-    final_data.to_csv('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart/'
-                      'Female_looming_wake_v2.csv')
+    # final_data.to_csv('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart/'
+    #                   'Female_looming_wake_v2.csv')
+
     # with open(item) as f:  # read single file to dict
     #     reader = f
     #     for line in reader:
