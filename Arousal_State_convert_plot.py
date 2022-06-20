@@ -156,57 +156,57 @@ if __name__ == '__main__':
     """
         SP Arousal 60min
     """
-    # a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
-    #              name="video_info.xlsx", column="looming_time1", state_name="Female_RoRR")  # Male_Wakefulness
-    #
-    # file_list_1 = []
-    # for item in a['Video_name'][0:10]:
-    #     item = item.replace("-camera-0", "")
-    #     file_list1 = search_csv(
-    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
-    #              r"/BeAMapping",
-    #         name="{}_Movement_Labels".format(item))
-    #     file_list_1.append(file_list1)
-    # file_list_1 = list(np.ravel(file_list_1))
-    #
-    # b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
-    #              name="video_info.xlsx", column="looming_time1", state_name="Male_RoRR")  # Female_Wakefulness
-    #
-    # file_list_2 = []
-    # for item in b['Video_name'][0:10]:
-    #     item = item.replace("-camera-0", "")
-    #     file_list1 = search_csv(
-    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
-    #              r"/BeAMapping",
-    #         name="{}_Movement_Labels".format(item))
-    #     file_list_2.append(file_list1)
-    # file_list_2 = list(np.ravel(file_list_2))
-    """
-        SP behavior 60min
-    """
-    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min',
-                 name="video_info.xlsx", column="looming_time1", state_name="Male_Wakefulness")  # Male_Wakefulness
+    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
+                 name="video_info.xlsx", column="looming_time1", state_name="Female_RoRR")  # Male_Wakefulness
 
     file_list_1 = []
     for item in a['Video_name'][0:10]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min/new_results/BeAMapping-replace",
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
+                 r"/BeAMapping_correct",
             name="{}_Movement_Labels".format(item))
         file_list_1.append(file_list1)
     file_list_1 = list(np.ravel(file_list_1))
 
-    b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min',
-                 name="video_info.xlsx", column="looming_time1", state_name="Female_Wakefulness")  # Female_Wakefulness
+    b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
+                 name="video_info.xlsx", column="looming_time1", state_name="Male_RoRR")  # Female_Wakefulness
 
     file_list_2 = []
     for item in b['Video_name'][0:10]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min/new_results/BeAMapping-replace",
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
+                 r"/BeAMapping_correct",
             name="{}_Movement_Labels".format(item))
         file_list_2.append(file_list1)
     file_list_2 = list(np.ravel(file_list_2))
+    """
+        SP behavior 60min
+    """
+    # a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min',
+    #              name="video_info.xlsx", column="looming_time1", state_name="Male_Wakefulness")  # Male_Wakefulness
+    #
+    # file_list_1 = []
+    # for item in a['Video_name'][0:10]:
+    #     item = item.replace("-camera-0", "")
+    #     file_list1 = search_csv(
+    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min/new_results/BeAMapping-replace",
+    #         name="{}_Movement_Labels".format(item))
+    #     file_list_1.append(file_list1)
+    # file_list_1 = list(np.ravel(file_list_1))
+    #
+    # b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min',
+    #              name="video_info.xlsx", column="looming_time1", state_name="Female_Wakefulness")  # Female_Wakefulness
+    #
+    # file_list_2 = []
+    # for item in b['Video_name'][0:10]:
+    #     item = item.replace("-camera-0", "")
+    #     file_list1 = search_csv(
+    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min/new_results/BeAMapping-replace",
+    #         name="{}_Movement_Labels".format(item))
+    #     file_list_2.append(file_list1)
+    # file_list_2 = list(np.ravel(file_list_2))
 
     """
         test code
@@ -261,7 +261,7 @@ if __name__ == '__main__':
     #     # A[j, j] = behavior_fre_norm[j]
     #     A[j, j] = 0
     """
-        RORR状态
+        RORR状态 单只老鼠
     """
     # for x in range(1, 13):
     #     state = "looming_time{}".format(x)
@@ -339,7 +339,7 @@ if __name__ == '__main__':
     #                   'Stepping']
     file_list = file_list_2
     dataframe = b
-    mouse_state = 'Wake'
+    mouse_state = 'RORR'
     looming_time = 14
     Male_data = np.zeros((16, 16))
     Female_data = np.zeros((16, 16))
@@ -379,5 +379,5 @@ if __name__ == '__main__':
         plt.tight_layout()
         plt.show()
         plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_convert/SP_Arousal_add'
-                    '/all_v4/All_{}{}_10min_v8.tiff'.format(mouse_state, int(x / 2)), dpi=300)
+                    '/all_v5/All_{}{}_10min_v9.tiff'.format(mouse_state, int(x / 2)), dpi=300)
         plt.close()

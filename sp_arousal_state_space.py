@@ -262,27 +262,27 @@ if __name__ == '__main__':
         SP_Arousal behavior wake: 10min  RORR:60min
     """
     a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
-                 name="video_info.xlsx", column="looming_time3", state_name="Male_Wakefulness")  # Male_Wakefulness
+                 name="video_info.xlsx", column="looming_time3", state_name="Male_RoRR")  # Male_Wakefulness
 
     file_list_1 = []
     # for item in a['Video_name'][0:len(a['Video_name'])]:
     for item in a['Video_name'][0:10]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2/BeAMapping",
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2/BeAMapping_correct",
             name="{}_Feature_Space".format(item))
         file_list_1.append(file_list1)
     file_list_1 = list(np.ravel(file_list_1))
 
     b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
-                 name="video_info.xlsx", column="looming_time3", state_name="Female_Wakefulness")  # Female_Wakefulness
+                 name="video_info.xlsx", column="looming_time3", state_name="Female_RoRR")  # Female_Wakefulness
 
     file_list_2 = []
     # for item in b['Video_name'][0:len(a['Video_name'])]:
     for item in b['Video_name'][0:10]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2/BeAMapping",
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2/BeAMapping_correct",
             name="{}_Feature_Space".format(item))
         file_list_2.append(file_list1)
     file_list_2 = list(np.ravel(file_list_2))
@@ -293,7 +293,7 @@ if __name__ == '__main__':
     Male_data = []
     Male_time = []
     for i in range(0, len(file_list_1)):
-        single_data = data_combine(file_list_1[i], 0, 10)
+        single_data = data_combine(file_list_1[i], 0, 60)
         # single_data = data_combine(file_list_1[i], a['looming_time{}'.format(time)][i],
         #                            a['looming_time{}'.format(time)][i] + 2 * 1800)
         # single_data = data_combine(file_list_1[i], 0, 107900)
@@ -301,7 +301,7 @@ if __name__ == '__main__':
 
     Female_data = []
     for i in range(0, len(file_list_2)):
-        single_data = data_combine(file_list_2[i], 0, 10)
+        single_data = data_combine(file_list_2[i], 0, 60)
         # single_data = data_combine(file_list_2[i], 0, 107900)
         # single_data = data_combine(file_list_2[i], 6618, 6618 + 2 * 1800)
         Female_data.append(single_data)
@@ -334,7 +334,7 @@ if __name__ == '__main__':
     # plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_space/State_space_normal'
     #             '/Wakefulness_{}_v5.tiff'.format(time), dpi=300)
     plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_space/SP_Arousal_add_60'
-                '/Wakefulness_all_v10.tiff', dpi=300)
+                '/RORR_all_v11.tiff', dpi=300)
     plt.close()
 
     """

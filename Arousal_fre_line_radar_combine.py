@@ -254,11 +254,14 @@ if __name__ == '__main__':
 
     # Ensure radar goes from 0 to 100.
     ax.set_ylim(0, 1600)
+    # ax.set_rlim(0, 1800)
+
     # ax.set_ylim(0, 600)
-    # plt.yticks(fontsize=28)
-    # ax.set(ytickets=None)
+    # plt.yticks(fontsize=38)
+    # ax.set(ytickets=[])
     # You can also set gridlines manually like this:
-    # ax.set_rgrids([20, 40, 60, 80, 100])
+    # ax.set_rgrids([i for i in range(0, 1601, 400)])
+
 
     # Set position of y-labels (0-100) to be in the middle
     # of the first two axes.
@@ -268,10 +271,12 @@ if __name__ == '__main__':
     # Change the color of the tick labels.
     ax.tick_params(colors='#222222')
 
-    ax.tick_params(axis='y', labelsize=10, color='#AAAAAA')
+    ax.tick_params(axis='y', labelsize=15, color='#AAAAAA', labelrotation=-45)
 
     # Change the color of the circular gridlines.
     ax.grid(color='#AAAAAA', alpha=0.3)
+    # ax.spines['polar'].set_visible(False)
+    # ax.grid(False)
     # Change the color of the outermost gridline (the spine).
     ax.spines['polar'].set_color('#222222')
 
@@ -282,7 +287,7 @@ if __name__ == '__main__':
 
     plt.savefig(
         "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart"
-        "/FM_looming_combine_V12.tiff", dpi=300, transparent=True)
+        "/FM_looming_combine_V13.tiff", dpi=300, transparent=True)
 
     # plt.savefig(
     #     "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart/{}_group1_V4"

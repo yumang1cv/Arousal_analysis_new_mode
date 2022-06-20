@@ -204,26 +204,26 @@ if __name__ == '__main__':
     """
         单组分分析
     """
-    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
+    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
                  name="video_info.xlsx", column="looming_time3", state_name="Male_RoRR")  # Male_Wakefulness
 
     file_list_1 = []
     for item in a['Video_name'][0:5]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2/BeAMapping_correct",
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
             name="{}_Movement_Labels".format(item))
         file_list_1.append(file_list1)
     file_list_1 = list(np.ravel(file_list_1))
 
-    b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
-                 name="video_info.xlsx", column="looming_time3", state_name="Female_Wakefulness")  # Female_Wakefulness
+    b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
+                 name="video_info.xlsx", column="looming_time3", state_name="Female_RoRR")  # Female_Wakefulness
 
     file_list_2 = []
     for item in b['Video_name'][0:6]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2/BeAMapping_correct",
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
             name="{}_Movement_Labels".format(item))
         file_list_2.append(file_list1)
     file_list_2 = list(np.ravel(file_list_2))
@@ -239,18 +239,18 @@ if __name__ == '__main__':
     #         name="rec-{}-G1-2021114230_Movement_Labels".format(item))
     #     csv_FD.append(csv_result3[0])
 
-    behavior_all = []
     # for item in file_list_1:
-    data = file_list_2
-    pre_df = b
-    for x in range(1, 2):
+    data = file_list_1
+    pre_df = a
+    for x in range(1, 5):
+        behavior_all = []
         for j in range(len(data)):
             item = data[j]
             f = pd.read_csv(item)
             class_type = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0,
                           9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 0}
-            start_time = int(pre_df['looming_time{}'.format(x)][j] - 0)
-            end_time = int(start_time + 2*60*30)
+            start_time = int(pre_df['looming_time{}'.format(x)][j] - 0 * 30)
+            end_time = int(start_time + 120 * 30 - 1)
             """
                 pandas计算步骤
             """
@@ -264,12 +264,16 @@ if __name__ == '__main__':
             # print(class_type)
             behavior_fre = list(class_type.values())
             behavior_all.append(behavior_fre)
-        behavior_all.append([0] * 16)
+        # behavior_all.append([0] * 16)
         # print(behavior_all)
-    final_data = pd.DataFrame(behavior_all)
 
-    # final_data.to_csv('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart/'
-    #                   'Female_looming_wake_v2.csv')
+        final_data = pd.DataFrame(behavior_all)
+
+        behavior_num = 16 - (final_data == 0).astype(int).sum(axis=1)
+        final_data['behavior_num'] = behavior_num
+
+        final_data.to_excel('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/looming'
+                            '/Male_RoRR{}.xlsx'.format(x))
 
     # with open(item) as f:  # read single file to dict
     #     reader = f

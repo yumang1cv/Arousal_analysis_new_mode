@@ -255,7 +255,7 @@ if __name__ == '__main__':
     file_list_2 = list(np.ravel(file_list_2))
 
     behavior_all = []
-    for item in file_list_1:
+    for item in file_list_2:
         f = pd.read_csv(item)
         """
             pandas计算步骤
@@ -296,7 +296,7 @@ if __name__ == '__main__':
     behavior_num = (16 - np.array(behavior_num)).tolist()
     final_data['behavior_numbers'] = behavior_num
     final_data.to_csv('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/SP_behavior'
-                      '/SP_Arousal_Male_v2.csv')
+                      '/SP_Arousal_Female_v3.csv')
 
     """
         SP behavior wake 行为个数
