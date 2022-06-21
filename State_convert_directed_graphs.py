@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
-# @FileName  :State_convert_looming.py
-# @Time      :2022/5/23 16:33
+# @FileName  :State_convert_directed_graphs.py
+# @Time      :2022/6/20 14:41
 # @Author    :XuYang
 import os
 import sys
@@ -29,6 +29,14 @@ sys.path.append(os.path.abspath(".."))
     12、Grooming:[21]      (#E8575A)            13、Flight:[23, 38]    (#008B74)
     14、Running:[24, 36]   (#00C0A3)            15、LORR:[27, 28, 39]  (#FF9671)
     16、Stepping:[37]      (#93DEB1)
+"""
+
+"""
+    1.Locomotion : 4-Walking   11-Trotting  16-Stepping  14-Running  13-Flight  2-Left turning  1-Right turning
+    2.Exploration : 10-Standing  6-Climbing  7-Falling  3-Sniffing
+    3.Maintenance : 12-Grooming
+    4.Non-locomtion : 8-Immobility
+    5.Posture : 15-LORR  9-Paralysis  5-Trembling
 """
 
 
@@ -66,16 +74,16 @@ def read_csv(path='.', name="", column="", element="", state_name=""):
 
 def pre_data(file_path, dataframe, num, state=""):
     # j = 0
-    A = np.zeros((16, 16))
+    A = np.zeros((5, 5))
 
     fre_list = []
     looming_time = int(dataframe.at[num, state])
-    start = looming_time - 0 * 30  # 起始时间
-    end = looming_time + 120 * 30  # 终止时间
+    start = looming_time - 300 * 30  # 起始时间
+    end = looming_time + 300 * 30  # 终止时间
 
     df2 = pd.read_csv(file_path)
 
-    data = df2.iloc[start:end, 1:2]
+    data = df2.iloc[start:end, 2:3]
     for i in range(1, len(data)):
         if data.iloc[i, 0] != data.iloc[i - 1, 0]:
             a = data.iloc[i, 0] - 1
@@ -83,8 +91,7 @@ def pre_data(file_path, dataframe, num, state=""):
             A[a, b] = A[a, b] + 1
     # print(A)
 
-    class_type = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0,
-                  9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 0}
+    class_type = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
 
     for line in data.iloc[:, 0]:
         if line not in class_type:
@@ -97,14 +104,8 @@ def pre_data(file_path, dataframe, num, state=""):
     # print(class_type)
     behavior_fre = list(class_type.values())
 
-    # if behavior_fre.count(0) == 15:
-    #     behavior_fre[8] = 50
-    #     behavior_fre[14] = 9000 - behavior_fre[8]
-    # # print(behavior_fre)
-
-    # A = normalize_2d(A)
-
     behavior_fre_norm = behavior_fre / np.linalg.norm(behavior_fre)
+    # behavior_fre_norm = behavior_fre
     for j in range(len(behavior_fre_norm)):
         # A[j, j] = behavior_fre_norm[j]
         A[j, j] = 0
@@ -126,18 +127,22 @@ def del_pre_data(data_list):
         del_data = np.delete(del_data, item, 1)
         del_data = np.delete(del_data, item, 0)
 
-    names = ['Right turning', 'Left turning', 'Sniffing', 'Walking', 'Trembling', 'Climbing', 'Falling',
-             'Immobility', 'Paralysis', 'Standing', 'Trotting', 'Grooming', 'Flight', 'Running', 'LORR', 'Stepping']
+    # names = ['Right turning', 'Left turning', 'Sniffing', 'Walking', 'Trembling', 'Climbing', 'Falling',
+    #          'Immobility', 'Paralysis', 'Standing', 'Trotting', 'Grooming', 'Flight', 'Running', 'LORR', 'Stepping']
+
+    names = ['Locomotion', 'Exploration', 'Maintenance', 'Non-locomtion', 'Posture']
 
     # color_list = ['#845EC2', '#B39CD0', '#D65DB1', '#4FFBDF', '#FFC75F',
     #               '#D5CABD', '#B0A8B9', '#FF6F91', '#F9F871', '#D7E8F0',
     #               '#60DB73', '#E8575A', '#008B74', '#00C0A3', '#FF9671',
-    #               '#93DEB1']
+    #               '#93DEB1']  # old color list
 
-    color_list = ['#A86A74', '#CB4042', '#FF6E00', '#EF8C92', '#89BDDE',
-                  '#FFB67F', '#FFC408', '#937DAD', '#478FB1', '#FFE2CC',
-                  '#EFB4C5', '#1d953f', '#B34C5A', '#D35889', '#A8DBD9',
-                  '#EACAC9']
+    # color_list = ['#A86A74', '#CB4042', '#FF6E00', '#EF8C92', '#89BDDE',
+    #               '#FFB67F', '#FFC408', '#937DAD', '#478FB1', '#FFE2CC',
+    #               '#EFB4C5', '#1d953f', '#B34C5A', '#D35889', '#A8DBD9',
+    #               '#EACAC9']   # new color list
+
+    color_list = ['#d7b0b0', '#f3b77c', '#aacf7c', '#c69cc5', '#8BABD3']  # big cluster color
 
     for item in del_index:
         del names[item]
@@ -157,27 +162,27 @@ if __name__ == '__main__':
     """
         looming arousal 2min
     """
-    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
+    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
                  name="video_info.xlsx", column="looming_time1", state_name="Male_RoRR")  # Male_Wakefulness
 
     file_list_1 = []
     for item in a['Video_name'][0:5]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
-            name="{}_Movement_Labels".format(item))
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
+                 r"/BeAMapping_correct", name="{}_Movement_Labels".format(item))
         file_list_1.append(file_list1)
     file_list_1 = list(np.ravel(file_list_1))
 
-    b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
+    b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
                  name="video_info.xlsx", column="looming_time1", state_name="Female_RoRR")  # Female_Wakefulness
 
     file_list_2 = []
     for item in b['Video_name'][0:6]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
-            name="{}_Movement_Labels".format(item))
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
+                 r"/BeAMapping_correct", name="{}_Movement_Labels".format(item))
         file_list_2.append(file_list1)
     file_list_2 = list(np.ravel(file_list_2))
 
@@ -191,8 +196,9 @@ if __name__ == '__main__':
     dataframe = b
     mouse_state = 'RORR'
     looming_time = 2
-    Male_data = np.zeros((16, 16))
-    Female_data = np.zeros((16, 16))
+    Male_data = np.zeros((5, 5))
+    Female_data = np.zeros((5, 5))
+
     for x in range(1, looming_time, 1):  # 调整间隔时长：5min/10min
         # for x in range(1, 2):
         state = "looming_time{}".format(x)
@@ -215,14 +221,14 @@ if __name__ == '__main__':
         all_data = Male_data + Female_data
 
         del_data, names, colors = del_pre_data(all_data)
-        all_data = np.zeros((16, 16))
+        # all_data = np.zeros((5, 5))
         color = ListedColormap(colors)
         fig = plt.figure(figsize=(5, 5), dpi=300)
         ax = fig.add_subplot(111)
         # chord_diagram(flux, names, gap=0.03, use_gradient=True, sort='distance', cmap=color,
         #               chord_colors=colors,
         #               rotate_names=True, fontcolor="grey", ax=ax, fontsize=10)
-        chord_diagram(del_data, gap=0.03, use_gradient=True, sort='distance', cmap=color,
+        chord_diagram(del_data, gap=0.03, use_gradient=True, sort='distance', cmap=color, names=names,
                       chord_colors=colors, fontcolor="grey", ax=ax, fontsize=10)
 
         # str_grd = "_gradient" if grads[0] else ""
