@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 from mpl_chord_diagram import chord_diagram
 from matplotlib.colors import ListedColormap, LinearSegmentedColormap
 import matplotlib
+import seaborn as sns
 
 matplotlib.use('Qt5Agg')
 sys.path.append(os.path.abspath(".."))
@@ -110,7 +111,7 @@ def pre_data(file_path, dataframe, num, state=""):
         # A[j, j] = behavior_fre_norm[j]
         A[j, j] = 0
 
-    return A
+    return A, behavior_fre
 
 
 def del_pre_data(data_list):
@@ -160,7 +161,7 @@ def normalize_2d(matrix):
 
 if __name__ == '__main__':
     """
-        looming arousal 2min
+        SP arousal 10min
     """
     a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
                  name="video_info.xlsx", column="looming_time1", state_name="Male_RoRR")  # Male_Wakefulness
@@ -187,55 +188,121 @@ if __name__ == '__main__':
     file_list_2 = list(np.ravel(file_list_2))
 
     """
-        Wake状态 所有老鼠数据
+        所有老鼠数据
     """
-    # behavior_label = ['Right turning', 'Left turning', 'Sniffing', 'Walking', 'Trembling', 'Climbing', 'Falling',
-    #                   'Immobility', 'Paralysis', 'Standing', 'Trotting', 'Grooming', 'Flight', 'Running', 'LORR',
-    #                   'Stepping']
+    # # behavior_label = ['Right turning', 'Left turning', 'Sniffing', 'Walking', 'Trembling', 'Climbing', 'Falling',
+    # #                   'Immobility', 'Paralysis', 'Standing', 'Trotting', 'Grooming', 'Flight', 'Running', 'LORR',
+    # #                   'Stepping']
+    # file_list = file_list_2
+    # dataframe = b
+    # mouse_state = 'Wakefulness'
+    # looming_time = 4
+    # Male_data = np.zeros((5, 5))
+    # Female_data = np.zeros((5, 5))
+    #
+    # for x in range(2, looming_time, 2):  # 调整间隔时长：5min/10min
+    #     # for x in range(1, 2):
+    #     state = "looming_time{}".format(x)
+    #     for num in range(len(file_list)):  # 访问老鼠个体
+    #         # for num in range(2, 3):
+    #         # sub_list2 = pre_data(file_list_2[0], b, 0, state="looming_time2")
+    #         sub_list1 = pre_data(file_list[num], dataframe, num, state=state)
+    #         # print(sub_list1)
+    #         # data = Male_data + Female_data
+    #         Male_data = Male_data + sub_list1
+    #
+    #     for num in range(len(file_list_1)):  # 访问老鼠个体
+    #         # for num in range(2, 3):
+    #         # sub_list2 = pre_data(file_list_2[0], b, 0, state="looming_time2")
+    #         sub_list2 = pre_data(file_list_1[num], a, num, state=state)
+    #         # print(sub_list2)
+    #         # data = Male_data + Female_data
+    #         Female_data = Female_data + sub_list2
+    #
+    #     all_data = Male_data + Female_data
+    #
+    #     del_data, names, colors = del_pre_data(all_data)
+    #     # all_data = np.zeros((5, 5))
+    #     color = ListedColormap(colors)
+    #     fig = plt.figure(figsize=(5, 5), dpi=300)
+    #     ax = fig.add_subplot(111)
+    #     # chord_diagram(flux, names, gap=0.03, use_gradient=True, sort='distance', cmap=color,
+    #     #               chord_colors=colors,
+    #     #               rotate_names=True, fontcolor="grey", ax=ax, fontsize=10)
+    #
+    #     chord_diagram(del_data, gap=0.03, use_gradient=True, sort='distance', cmap=color, names=names,
+    #                   chord_colors=colors, fontcolor="grey", ax=ax, fontsize=10)
+    #     # sns.heatmap(data=all_data)
+    #
+    #     # str_grd = "_gradient" if grads[0] else ""
+    #     plt.xlabel('Time (s)', fontsize=15)
+    #     plt.ylabel('Fraction', fontsize=15)
+    #     plt.tight_layout()
+    #     plt.show()
+    #     # plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_convert/SP_Arousal_add'
+    #     #             '/big_cluster/All_Wakefulness_{}{}_10min.tiff'.format(mouse_state, int(x)), dpi=300)
+    #     # plt.close()
+
+    """
+            单只老鼠数据
+    """
     file_list = file_list_2
     dataframe = b
-    mouse_state = 'RORR'
-    looming_time = 2
+    mouse_state = 'Wakefulness'
+    looming_time = 4
     Male_data = np.zeros((5, 5))
     Female_data = np.zeros((5, 5))
 
-    for x in range(1, looming_time, 1):  # 调整间隔时长：5min/10min
+    for x in range(2, looming_time, 2):  # 调整间隔时长：5min/10min
         # for x in range(1, 2):
         state = "looming_time{}".format(x)
         for num in range(len(file_list)):  # 访问老鼠个体
             # for num in range(2, 3):
             # sub_list2 = pre_data(file_list_2[0], b, 0, state="looming_time2")
-            sub_list1 = pre_data(file_list[num], dataframe, num, state=state)
+            sub_list1, behavior_fre_single = pre_data(file_list[num], dataframe, num, state=state)
             # print(sub_list1)
             # data = Male_data + Female_data
             Male_data = Male_data + sub_list1
 
-        for num in range(len(file_list_1)):  # 访问老鼠个体
-            # for num in range(2, 3):
-            # sub_list2 = pre_data(file_list_2[0], b, 0, state="looming_time2")
-            sub_list2 = pre_data(file_list_1[num], a, num, state=state)
-            # print(sub_list2)
-            # data = Male_data + Female_data
-            Female_data = Female_data + sub_list2
+            # for num in range(len(file_list_1)):  # 访问老鼠个体
+            #     # for num in range(2, 3):
+            #     # sub_list2 = pre_data(file_list_2[0], b, 0, state="looming_time2")
+            #     sub_list2 = pre_data(file_list_1[num], a, num, state=state)
+            #     # print(sub_list2)
+            #     # data = Male_data + Female_data
+            #     Female_data = Female_data + sub_list2
 
-        all_data = Male_data + Female_data
+            all_data = Male_data + Female_data
 
-        del_data, names, colors = del_pre_data(all_data)
-        # all_data = np.zeros((5, 5))
-        color = ListedColormap(colors)
-        fig = plt.figure(figsize=(5, 5), dpi=300)
-        ax = fig.add_subplot(111)
-        # chord_diagram(flux, names, gap=0.03, use_gradient=True, sort='distance', cmap=color,
-        #               chord_colors=colors,
-        #               rotate_names=True, fontcolor="grey", ax=ax, fontsize=10)
-        chord_diagram(del_data, gap=0.03, use_gradient=True, sort='distance', cmap=color, names=names,
-                      chord_colors=colors, fontcolor="grey", ax=ax, fontsize=10)
+            del_data, names, colors = del_pre_data(all_data)
+            # all_data = np.zeros((5, 5))
+            color = ListedColormap(colors)
+            fig = plt.figure(figsize=(5, 5), dpi=300)
+            ax = fig.add_subplot(111)
+            # chord_diagram(flux, names, gap=0.03, use_gradient=True, sort='distance', cmap=color,
+            #               chord_colors=colors,
+            #               rotate_names=True, fontcolor="grey", ax=ax, fontsize=10)
 
-        # str_grd = "_gradient" if grads[0] else ""
-        plt.xlabel('Time (s)', fontsize=15)
-        plt.ylabel('Fraction', fontsize=15)
-        plt.tight_layout()
-        plt.show()
-        # plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_convert/looming'
-        #             '/All_looming_{}{}_2min_v8.tiff'.format(mouse_state, int(x)), dpi=300)
-        # plt.close()
+            chord_diagram(del_data, gap=0.03, use_gradient=True, sort='distance', cmap=color, names=names,
+                          chord_colors=colors, fontcolor="grey", ax=ax, fontsize=10)
+            # sns.heatmap(data=all_data)
+
+            # str_grd = "_gradient" if grads[0] else ""
+            plt.xlabel('Time (s)', fontsize=15)
+            plt.ylabel('Fraction', fontsize=15)
+            plt.tight_layout()
+            plt.show()
+            plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_convert'
+                        '/SP_Arousal_add/big_cluster/All_Wakefulness_Male_{}{}_{}_10min.tiff'.format(num,
+                                                                                                     mouse_state,
+                                                                                                     int(x)), dpi=300)
+            plt.close()
+
+            matrix_out = del_data
+            for a in range(len(del_data)):
+
+            # matrix_out = pd.DataFrame(del_data)
+            # matrix_out['behavior frequency'] = behavior_fre_single
+            # matrix_out = matrix_out.rename(
+            #     columns={0: 'Locomotion', 1: 'Exploration', 2: 'Maintenance', 3: 'Non_locomtion', 4: 'Posture'},
+            #     index={0: 'Locomotion', 1: 'Exploration', 2: 'Maintenance', 3: 'Non_locomtion', 4: 'Posture'})
