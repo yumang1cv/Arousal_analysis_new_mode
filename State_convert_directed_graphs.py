@@ -164,7 +164,7 @@ if __name__ == '__main__':
         SP arousal 10min
     """
     a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
-                 name="video_info.xlsx", column="looming_time1", state_name="Male_RoRR")  # Male_Wakefulness
+                 name="video_info.xlsx", column="looming_time1", state_name="Male_Wakefulness")  # Male_Wakefulness
 
     file_list_1 = []
     for item in a['Video_name'][0:5]:
@@ -176,7 +176,7 @@ if __name__ == '__main__':
     file_list_1 = list(np.ravel(file_list_1))
 
     b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
-                 name="video_info.xlsx", column="looming_time1", state_name="Female_RoRR")  # Female_Wakefulness
+                 name="video_info.xlsx", column="looming_time1", state_name="Female_Wakefulness")  # Female_Wakefulness
 
     file_list_2 = []
     for item in b['Video_name'][0:6]:
@@ -298,8 +298,8 @@ if __name__ == '__main__':
                                                                                                      int(x)), dpi=300)
             plt.close()
 
-            matrix_out = del_data
-            for a in range(len(del_data)):
+            # matrix_out = del_data
+            # for a in range(len(del_data)):
 
             # matrix_out = pd.DataFrame(del_data)
             # matrix_out['behavior frequency'] = behavior_fre_single
