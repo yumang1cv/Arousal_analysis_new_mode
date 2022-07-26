@@ -64,7 +64,7 @@ def read_csv(path='.', name="", column="", element="", state_name=""):
 def pre_data(file_path, dataframe, num, state=""):
     df1 = pd.read_csv(file_path)
     looming_time = int(dataframe.at[num, state])
-    data = df1.iloc[looming_time:looming_time + 3600, 1:2]
+    data = df1.iloc[looming_time - 18000:looming_time, 1:2]
 
     data1 = data.iloc[:, 0].tolist()
 
@@ -187,104 +187,219 @@ if __name__ == '__main__':
     """
         looming三状态对比
     """
-    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
+    # a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
+    #              name="video_info.xlsx", column="looming_time1", state_name="Male_Wakefulness")  # Male_Wakefulness
+    #
+    # file_list_1 = []
+    # for item in a['Video_name'][0:8]:
+    #     item = item.replace("-camera-0", "")
+    #     file_list1 = search_csv(
+    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
+    #         name="{}_Movement_Labels".format(item))
+    #     file_list_1.append(file_list1)
+    # file_list_1 = list(np.ravel(file_list_1))
+    #
+    # b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all', name="video_info.xlsx",
+    #              column="looming_time1", state_name="Female_Wakefulness")  # Female_Wakefulness
+    #
+    # file_list_2 = []
+    # for item in b['Video_name'][0:8]:
+    #     item = item.replace("-camera-0", "")
+    #     file_list1 = search_csv(
+    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
+    #         name="{}_Movement_Labels".format(item))
+    #     file_list_2.append(file_list1)
+    # file_list_2 = list(np.ravel(file_list_2))
+    #
+    # c = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
+    #              name="video_info.xlsx", column="looming_time1", state_name="Male_RoRR")  # Male_Wakefulness
+    #
+    # file_list_3 = []
+    # for item in c['Video_name'][0:8]:
+    #     item = item.replace("-camera-0", "")
+    #     file_list3 = search_csv(
+    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
+    #         name="{}_Movement_Labels".format(item))
+    #     file_list_3.append(file_list3)
+    # file_list_3 = list(np.ravel(file_list_3))
+    #
+    # d = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all', name="video_info.xlsx",
+    #              column="looming_time1", state_name="Female_RoRR")  # Female_Wakefulness
+    #
+    # file_list_4 = []
+    # for item in d['Video_name'][0:8]:
+    #     item = item.replace("-camera-0", "")
+    #     file_list4 = search_csv(
+    #         path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
+    #         name="{}_Movement_Labels".format(item))
+    #     file_list_4.append(file_list4)
+    # file_list_4 = list(np.ravel(file_list_4))
+    #
+    # Male_list = []
+    # for i in range(0, 5):
+    #     sub_list1 = pre_data(file_list_1[i], a, i, state="looming_time1")
+    #     # print(sub_list1)
+    #     Male_list.append(sub_list1)
+    # Male_list = sort_data(Male_list)
+    #
+    # Female_list = []
+    # for i in range(0, 5):
+    #     sub_list2 = pre_data(file_list_2[i], b, i, state="looming_time1")
+    #     # print(sub_list2)
+    #     Female_list.append(sub_list2)
+    # Female_list = sorted(Female_list)
+    # # Female_list = sort_data(Female_list)
+    #
+    # Female_list2 = []
+    # for i in range(1, 6):
+    #     sub_list3 = pre_data(file_list_3[i], c, i, state="looming_time1")
+    #     # print(file_list_3[i], sub_list3)
+    #     Female_list2.append(sub_list3)
+    # # Female_list2 = sort_data(Female_list2)
+    #
+    # Female_list3 = []
+    # for i in range(0, 5):
+    #     sub_list4 = pre_data(file_list_4[i], d, i, state="looming_time1")
+    #     # print(sub_list2)
+    #     Female_list3.append(sub_list4)
+    # Female_list3 = sort_data(Female_list3)
+    #
+    # Wake = Male_list + Female_list
+    # # Wake = sort_data(Wake)
+    #
+    # RORR = Female_list2 + Female_list3
+    # # RORR = sort_data(RORR)
+    # # all_list = Male_list + Female_list + Female_list2 + Female_list3
+    # all_list = Wake + RORR
+    # # X = np.corrcoef(all_list)
+    # # ax = sns.heatmap(X, center=0, cmap="YlGnBu")
+    #
+    # # sort_list = sort_data(all_list)
+    # # x_ticks = ['', '', '', 'Wakefulness', '', '', '', '', '', '', 'RoRR', '', '', '', ]
+    # # y_ticks = ['Wakefulness', 'RoRR']
+    # X = np.corrcoef(all_list)
+    # fig, ax = plt.subplots(figsize=(7, 6), dpi=300)
+    # # ax = sns.heatmap(X, center=0, cmap="Spectral", yticklabels=False, xticklabels=False, vmin=-1, vmax=1)
+    # ax = sns.heatmap(X, center=0, cmap="vlag", yticklabels=False, xticklabels=False, vmin=-1, vmax=1)
+    # # ax.set_xticklabels(['Wakefulness', 'RoRR'])
+    #
+    # cbar = ax.collections[0].colorbar
+    # # here set the labelsize by 20
+    # cbar.ax.tick_params(labelsize=25)
+    # plt.tight_layout()
+    # plt.show()
+
+    """
+        SP behavior 六时段分析
+    """
+    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min',
                  name="video_info.xlsx", column="looming_time1", state_name="Male_Wakefulness")  # Male_Wakefulness
 
     file_list_1 = []
-    for item in a['Video_name'][0:8]:
+    for item in a['Video_name'][0:10]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min/new_results/BeAMapping-replace",
+            # file path
             name="{}_Movement_Labels".format(item))
         file_list_1.append(file_list1)
     file_list_1 = list(np.ravel(file_list_1))
 
-    b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all', name="video_info.xlsx",
-                 column="looming_time1", state_name="Female_Wakefulness")  # Female_Wakefulness
+    b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min',
+                 name="video_info.xlsx", column="looming_time1", state_name="Female_Wakefulness")  # Female_Wakefulness
 
     file_list_2 = []
-    for item in b['Video_name'][0:8]:
+    for item in b['Video_name'][0:10]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min/new_results/BeAMapping-replace",
+            # file path
             name="{}_Movement_Labels".format(item))
         file_list_2.append(file_list1)
     file_list_2 = list(np.ravel(file_list_2))
 
-    c = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
+    c = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
                  name="video_info.xlsx", column="looming_time1", state_name="Male_RoRR")  # Male_Wakefulness
 
     file_list_3 = []
-    for item in c['Video_name'][0:8]:
+    for item in c['Video_name'][0:10]:
         item = item.replace("-camera-0", "")
         file_list3 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
+                 r"/BeAMapping_correct",
             name="{}_Movement_Labels".format(item))
         file_list_3.append(file_list3)
     file_list_3 = list(np.ravel(file_list_3))
 
-    d = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all', name="video_info.xlsx",
-                 column="looming_time1", state_name="Female_RoRR")  # Female_Wakefulness
+    d = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2',
+                 name="video_info.xlsx", column="looming_time1", state_name="Female_RoRR")  # Female_Wakefulness
 
     file_list_4 = []
-    for item in d['Video_name'][0:8]:
+    for item in d['Video_name'][0:10]:
         item = item.replace("-camera-0", "")
         file_list4 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
+            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/Spontaneous_arousal/SP_Arousal_result_add2"
+                 r"/BeAMapping_correct",
             name="{}_Movement_Labels".format(item))
         file_list_4.append(file_list4)
     file_list_4 = list(np.ravel(file_list_4))
 
-    Male_list = []
-    for i in range(0, 5):
-        sub_list1 = pre_data(file_list_1[i], a, i, state="looming_time1")
-        # print(sub_list1)
-        Male_list.append(sub_list1)
-    Male_list = sort_data(Male_list)
+    for x in range(2, 14, 2):
 
-    Female_list = []
-    for i in range(0, 5):
-        sub_list2 = pre_data(file_list_2[i], b, i, state="looming_time1")
-        # print(sub_list2)
-        Female_list.append(sub_list2)
-    Female_list = sorted(Female_list)
-    # Female_list = sort_data(Female_list)
+        state_name = "looming_time{}".format(x)
 
-    Female_list2 = []
-    for i in range(1, 6):
-        sub_list3 = pre_data(file_list_3[i], c, i, state="looming_time1")
-        # print(file_list_3[i], sub_list3)
-        Female_list2.append(sub_list3)
-    # Female_list2 = sort_data(Female_list2)
+        Male_list = []
+        for i in range(len(file_list_1)):
+            sub_list1 = pre_data(file_list_1[i], a, i, state=state_name)
+            # print(sub_list1)
+            Male_list.append(sub_list1)
+        Male_list = sort_data(Male_list)
 
-    Female_list3 = []
-    for i in range(0, 5):
-        sub_list4 = pre_data(file_list_4[i], d, i, state="looming_time1")
-        # print(sub_list2)
-        Female_list3.append(sub_list4)
-    Female_list3 = sort_data(Female_list3)
+        Female_list = []
+        for i in range(len(file_list_2)):
+            sub_list2 = pre_data(file_list_2[i], b, i, state=state_name)
+            # print(sub_list2)
+            Female_list.append(sub_list2)
+        Female_list = sorted(Female_list)
 
-    Wake = Male_list + Female_list
-    # Wake = sort_data(Wake)
+        Female_list2 = []
+        for i in range(len(file_list_3)):
+            sub_list3 = pre_data(file_list_3[i], c, i, state=state_name)
+            # print(file_list_3[i], sub_list3)
+            Female_list2.append(sub_list3)
+        Female_list2 = sort_data(Female_list2)
 
-    RORR = Female_list2 + Female_list3
-    # RORR = sort_data(RORR)
-    # all_list = Male_list + Female_list + Female_list2 + Female_list3
-    all_list = Wake + RORR
-    # X = np.corrcoef(all_list)
-    # ax = sns.heatmap(X, center=0, cmap="YlGnBu")
+        Female_list3 = []
+        for i in range(len(file_list_4)):
+            sub_list4 = pre_data(file_list_4[i], d, i, state=state_name)
+            # print(sub_list2)
+            Female_list3.append(sub_list4)
+        Female_list3 = sort_data(Female_list3)
 
-    # sort_list = sort_data(all_list)
-    # x_ticks = ['', '', '', 'Wakefulness', '', '', '', '', '', '', 'RoRR', '', '', '', ]
-    # y_ticks = ['Wakefulness', 'RoRR']
-    X = np.corrcoef(all_list)
-    fig, ax = plt.subplots(figsize=(7, 6), dpi=300)
-    # ax = sns.heatmap(X, center=0, cmap="Spectral", yticklabels=False, xticklabels=False, vmin=-1, vmax=1)
-    ax = sns.heatmap(X, center=0, cmap="vlag", yticklabels=False, xticklabels=False, vmin=-1, vmax=1)
-    # ax.set_xticklabels(['Wakefulness', 'RoRR'])
+        Wake = Male_list + Female_list
+        # Wake = sort_data(Wake)
 
-    cbar = ax.collections[0].colorbar
-    # here set the labelsize by 20
-    cbar.ax.tick_params(labelsize=25)
-    plt.tight_layout()
-    plt.show()
+        RORR = Female_list2 + Female_list3
+        # RORR = sort_data(RORR)
+        # all_list = Male_list + Female_list + Female_list2 + Female_list3
+        all_list = Wake + RORR
+        # X = np.corrcoef(all_list)
+        # ax = sns.heatmap(X, center=0, cmap="YlGnBu")
+
+        # sort_list = sort_data(all_list)
+        # x_ticks = ['', '', '', 'Wakefulness', '', '', '', '', '', '', 'RoRR', '', '', '', ]
+        # y_ticks = ['Wakefulness', 'RoRR']
+        X = np.corrcoef(all_list)
+        fig, ax = plt.subplots(figsize=(7, 6), dpi=300)
+        # ax = sns.heatmap(X, center=0, cmap="Spectral", yticklabels=False, xticklabels=False, vmin=-1, vmax=1)
+        ax = sns.heatmap(X, center=0, cmap="vlag", yticklabels=False, xticklabels=False, vmin=-1, vmax=1)
+        # ax.set_xticklabels(['Wakefulness', 'RoRR'])
+
+        cbar = ax.collections[0].colorbar
+        # here set the labelsize by 20
+        cbar.ax.tick_params(labelsize=25)
+        plt.tight_layout()
+        plt.show()
+        plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/correlation/Wake_RORR/v2'
+                    '/SP_Wake_RORR_{}min.tiff'.format(5 * x), Transparent=True)
+        plt.close()
