@@ -271,7 +271,7 @@ if __name__ == '__main__':
     # Change the color of the tick labels.
     ax.tick_params(colors='#222222')
 
-    ax.tick_params(axis='y', labelsize=15, color='#AAAAAA', labelrotation=-45)
+    ax.tick_params(axis='y', labelsize=18, color='#AAAAAA', labelrotation=-46, grid_label=False)
 
     # Change the color of the circular gridlines.
     ax.grid(color='#AAAAAA', alpha=0.3)
@@ -287,10 +287,10 @@ if __name__ == '__main__':
 
     plt.savefig(
         "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart"
-        "/FM_looming_combine_V13.tiff", dpi=300, transparent=True)
+        "/FM_looming_combine_V15.tiff", dpi=300, transparent=True)
 
     # plt.savefig(
     #     "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart/{}_group1_V4"
     #     ".tiff".format(data), dpi=300, transparent=True)
     plt.show()
-    plt.close()
+    # plt.close()

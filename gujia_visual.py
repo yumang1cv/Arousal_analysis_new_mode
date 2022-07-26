@@ -19,7 +19,7 @@ import seaborn as sns
 
 '''data_input'''
 df = pd.read_csv(r'D:/3D_behavior/Arousal_behavior/Arousal_result_all/3Dskeleton/Calibrated_3DSkeleton/'
-                 r'rec-4-M-20211201110704_Cali_Data3d.csv')  # read file
+                 r'rec-9-Mwake-20211202112821_Cali_Data3d.csv')  # read file
 df1 = np.transpose(df[0:len(df)])
 
 a = []
@@ -87,7 +87,7 @@ def point_color(list_a, list_b, list_c, point_size):
 """
 
 if __name__ == "__main__":
-    get_data(df1, 12645)     # 帧数
+    get_data(df1, 9624)     # 帧数
 
     fig = plt.figure(figsize=(10, 10), dpi=300)
     # plt.style.use("dark_background")

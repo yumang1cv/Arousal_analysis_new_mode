@@ -41,7 +41,7 @@ Posture = ['Grooming', 'Immobility', 'LORR', 'Paralysis', 'Trembling']
 
 
 # group_1 = ['Walking', 'Trotting', 'Stepping', 'Running', 'Flight', 'Left turning', 'Right turning']
-group_1 = Posture
+group_1 = Locomotion
 group_1_index = []
 for item in group_1:
     # print(behavior_labels.index(item))
@@ -233,8 +233,8 @@ if __name__ == '__main__':
             label.set_horizontalalignment('right')
 
     # Ensure radar goes from 0 to 100.
-    ax.set_ylim(0, 1400)
-    # ax.set_ylim(0, 400)
+    # ax.set_ylim(0, 1400)
+    ax.set_ylim(0, 400) #Locomotion
     # plt.yticks(fontsize=12)
     # ax.set(ytickets=None)
     # You can also set gridlines manually like this:
@@ -248,7 +248,7 @@ if __name__ == '__main__':
     # Change the color of the tick labels.
     ax.tick_params(colors='#222222')
 
-    # ax.tick_params(axis='y', labelsize=15, color='#AAAAAA', labelrotation=-43)  # Posture
+    ax.tick_params(axis='y', labelsize=18, color='#AAAAAA', labelrotation=-35, grid_label=False)
 
     # Change the color of the circular gridlines.
     ax.grid(color='#AAAAAA', alpha=0.3)
@@ -261,7 +261,7 @@ if __name__ == '__main__':
     plt.tight_layout()
     plt.savefig(
         "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart"
-        "/FM_looming_Posture_v13.tiff", dpi=300, transparent=True)
+        "/FM_looming_Locomotion_v15.tiff", dpi=300, transparent=True)
     # plt.savefig(
     #     "D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/Radar_chart/{}_group1_V4"
     #     ".tiff".format(data), dpi=300, transparent=True)
