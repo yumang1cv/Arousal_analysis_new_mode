@@ -44,8 +44,8 @@ mesh_mouse_avg(avg_coord{1, i_clus}', 1)
 
 for l = 1:size(drawline,1)
     pts = [tem_avg_skeleton(:,drawline(l,1))'; tem_avg_skeleton(:,drawline(l,2))']; %line btw elbow and shoulder
-    %line(pts(:,1), pts(:,2), pts(:,3),'color','k','linewidth', 0.5) 
-    line(pts(:,1), pts(:,2), pts(:,3),'color','#D53624','linewidth', 0.5)
+    line(pts(:,1), pts(:,2), pts(:,3),'color','k','linewidth', 0.5) 
+%     line(pts(:,1), pts(:,2), pts(:,3),'color','#D53624','linewidth', 0.5)
 end
 
 %%

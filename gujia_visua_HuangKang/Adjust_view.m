@@ -1,5 +1,5 @@
 clc;clear;
-namelist = dir('D:\3D_behavior\Arousal_behavior\Arousal_result_all\body_scatter_class\*.fig');
+namelist = dir('D:\3D_behavior\Arousal_behavior\Arousal_result_all\SP_behavior_60min\new_results\body_scatter_class\*.fig');
 
 % 读取后namelist 的格式为
 % name -- filename

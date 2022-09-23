@@ -1,8 +1,9 @@
 %%
+clc;clear;
 genPath = genpath('D:/3D_behavior/Arousal_behavior/Arousal_result_all/code/gujia_visua_HuangKang');
 addpath(genPath)
 
-working_path = 'D:/3D_behavior/Arousal_behavior/Arousal_result_all/SP_behavior_60min/new_results';
+working_path = 'D:/3D_behavior/Arousal_behavior/Arousal_result_all';
 
 nfeatures = 16;
 selection = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14];
@@ -37,34 +38,36 @@ fs = 30;
 ali_XY = []; raw_XY = []; vel_XY = []; labels = []; reMap = [];
 single_frame = 1;
 for i_num = 1:length(dataname_list)
-    data3d = importdata([working_path,'/3Dskeleton/Calibrated_3DSkeleton/',dataname_list{i_num},'_Cali_Data3d.csv']);
-    tempdata = fillmissing(data3d.data, 'linear');
-    RawData.X = tempdata(:,1:3:nfeatures*3);
-    RawData.Y = tempdata(:,2:3:nfeatures*3);
-    RawData.Z = tempdata(:,3:3:nfeatures*3);
-    
-    raw = zeros(nfeatures*3, size(RawData.X,1));
-    PreproData = correction_3D(RawData, method, WinWD, fs);
-    raw(1:3:end, :) = PreproData.X';
-    raw(2:3:end, :) = PreproData.Y';
-    raw(3:3:end, :) = PreproData.Z';
-    raw_XY = [raw_XY, raw];
-    
-    vel = diff(raw')';
-    vel = [vel, vel(:, end)];
-    vel_XY = [vel_XY, vel];
-    
-    BeA_DecData_XYZ = body_alignment(PreproData, BA);
-    ali_XY = [ali_XY, BeA_DecData_XYZ];
-    
-    feature_space_csv = importdata([working_path,'/BeAMapping/',dataname_list{i_num},'_Feature_Space.csv']).data;
-    labels = [labels; feature_space_csv(:,1)];
-    single_boundary = feature_space_csv(:,2)';
-    boundary = [0, single_boundary(1:end-1)] + single_frame;
-    reMap = [reMap, boundary];
-    single_frame = single_frame + size(RawData.X,1);
-
-    disp(['Read data: ', num2str(i_num), ' -> ', num2str(length(dataname_list))]);
+    if i_num ~=35
+        data3d = importdata([working_path,'/3Dskeleton/Calibrated_3DSkeleton/',dataname_list{i_num},'_Cali_Data3d.csv']);
+        tempdata = fillmissing(data3d.data, 'linear');
+        RawData.X = tempdata(:,1:3:nfeatures*3);
+        RawData.Y = tempdata(:,2:3:nfeatures*3);
+        RawData.Z = tempdata(:,3:3:nfeatures*3);
+        
+        raw = zeros(nfeatures*3, size(RawData.X,1));
+        PreproData = correction_3D(RawData, method, WinWD, fs);
+        raw(1:3:end, :) = PreproData.X';
+        raw(2:3:end, :) = PreproData.Y';
+        raw(3:3:end, :) = PreproData.Z';
+        raw_XY = [raw_XY, raw];
+        
+        vel = diff(raw')';
+        vel = [vel, vel(:, end)];
+        vel_XY = [vel_XY, vel];
+        
+        BeA_DecData_XYZ = body_alignment(PreproData, BA);
+        ali_XY = [ali_XY, BeA_DecData_XYZ];
+        
+        feature_space_csv = importdata([working_path,'/BeAMapping/',dataname_list{i_num},'_Feature_Space.csv']).data;
+        labels = [labels; feature_space_csv(:,1)];
+        single_boundary = feature_space_csv(:,2)';
+        boundary = [0, single_boundary(1:end-1)] + single_frame;
+        reMap = [reMap, boundary];
+        single_frame = single_frame + size(RawData.X,1);
+        
+        disp(['Read data: ', num2str(i_num), ' -> ', num2str(length(dataname_list))]);
+    end
 end
 reMap = [reMap, single_frame];
 n_clus = max(unique(labels));
