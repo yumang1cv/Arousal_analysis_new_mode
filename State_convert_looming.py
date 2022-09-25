@@ -14,22 +14,41 @@ import matplotlib
 matplotlib.use('Qt5Agg')
 sys.path.append(os.path.abspath(".."))
 
-# color_list = ['#845EC2', '#B39CD0', '#D65DB1', '#4FFBDF', '#FFC75F',
-#               '#D5CABD', '#B0A8B9', '#FF6F91', '#F9F871', '#D7E8F0',
-#               '#60DB73', '#E8575A', '#008B74', '#00C0A3', '#FF9671',
-#               '#93DEB1']
+
 """
-    Arousal Behavior Class Combine
-    1、Right turning:[1]  (#845EC2)             2、Left turning:[26]  (#B39CD0)
-    3、Sniffing:[2, 4, 10, 11, 12, 16, 22, 25]  (#D65DB1)
-    4、Walking:[3, 6, 7, 19, 30]  (#4FFBDF)     5、Trembling:[5, 15, 32, 40]  (#FFC75F)
-    6、Climbing:[8, 29]   (#D5CABD)             7、Falling:[9]         (#B0A8B9)
-    8、Immobility:[13, 20, 33, 34] (#FF6F91)    9、Paralysis:[14, 35]  (#F9F871)
-    10、Standing:[17]      (#D7E8F0)            11、Trotting:[18, 31]  (#60DB73)
-    12、Grooming:[21]      (#E8575A)            13、Flight:[23, 38]    (#008B74)
-    14、Running:[24, 36]   (#00C0A3)            15、LORR:[27, 28, 39]  (#FF9671)
-    16、Stepping:[37]      (#93DEB1)
+    Arousal Behavior Class Combine-SP behavior 2022.09.23
+    2、Running:[23, 24, 38]            3、Trotting:[6, 7, 36]
+    4、Walking:[19, 30, 31]            5、Stepping:[10, 18]
+    6、Left turning:[26]               7、Right turning:[16]
+    8、Rising:[17]                     9、Standing:[29]
+    10、Climbing:[8, 9]
+    11、Sniffing:[2, 3, 4, 11, 21, 22, 25, 33, 37]
+    12、Grooming:[20, 34, 40]          13、Immobility:[1, 12, 13]
+    14、LORR:[27, 28, 39]              15、Paralysis:[5]
+    16、Twitching:[14, 15, 32, 35]
 """
+
+behavior_dict = {
+    'flight': '#f25832',
+    'Running': '#cd5c5c',
+    'Trotting': '#fc7c59',
+    'Walking': '#ff9e80',
+    'Stepping': '#ffbfa9',
+    'Left turning': '#d3afa4',
+    'Right turning': '#e3c9c2',
+    'Rising': '#f4a460',
+    'Standing': '#ffcc00',
+    'Climbing': '#ffe735',
+    'Sniffing': '#ff6e00',
+    'Grooming': '#48a36d',
+    'Immobility': '#c896c8',
+    'LORR': '#4798b3',
+    'Paralysis': '#8bb9cc',
+    'Twitching': '#c5dce5'
+}
+
+color_list = list(behavior_dict.values())
+movement_names = list(behavior_dict.keys())
 
 
 def search_csv(path=".", name=""):  # 抓取csv文件
@@ -126,18 +145,17 @@ def del_pre_data(data_list):
         del_data = np.delete(del_data, item, 1)
         del_data = np.delete(del_data, item, 0)
 
-    names = ['Right turning', 'Left turning', 'Sniffing', 'Walking', 'Trembling', 'Climbing', 'Falling',
-             'Immobility', 'Paralysis', 'Standing', 'Trotting', 'Grooming', 'Flight', 'Running', 'LORR', 'Stepping']
+    names = movement_names
 
     # color_list = ['#845EC2', '#B39CD0', '#D65DB1', '#4FFBDF', '#FFC75F',
     #               '#D5CABD', '#B0A8B9', '#FF6F91', '#F9F871', '#D7E8F0',
     #               '#60DB73', '#E8575A', '#008B74', '#00C0A3', '#FF9671',
     #               '#93DEB1']
 
-    color_list = ['#A86A74', '#CB4042', '#FF6E00', '#EF8C92', '#89BDDE',
-                  '#FFB67F', '#FFC408', '#937DAD', '#478FB1', '#FFE2CC',
-                  '#EFB4C5', '#1d953f', '#B34C5A', '#D35889', '#A8DBD9',
-                  '#EACAC9']
+    # color_list = ['#A86A74', '#CB4042', '#FF6E00', '#EF8C92', '#89BDDE',
+    #               '#FFB67F', '#FFC408', '#937DAD', '#478FB1', '#FFE2CC',
+    #               '#EFB4C5', '#1d953f', '#B34C5A', '#D35889', '#A8DBD9',
+    #               '#EACAC9']
 
     for item in del_index:
         del names[item]
@@ -157,27 +175,32 @@ if __name__ == '__main__':
     """
         looming arousal 2min
     """
-    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
-                 name="video_info.xlsx", column="looming_time1", state_name="Male_RoRR")  # Male_Wakefulness
+    mouse_state = 'RoRR'
+    a = read_csv(path=r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new',
+                 name="video_info.xlsx", column="looming_time4",
+                 state_name="Male_{}".format(mouse_state))  # Male_Wakefulness
 
     file_list_1 = []
+    # for item in a['Video_name'][0:len(a['Video_name'])]:
     for item in a['Video_name'][0:5]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
-            name="{}_Movement_Labels".format(item))
+            path=r"D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output",
+            name="{}_Feature_Space".format(item))
         file_list_1.append(file_list1)
     file_list_1 = list(np.ravel(file_list_1))
 
-    b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
-                 name="video_info.xlsx", column="looming_time1", state_name="Female_RoRR")  # Female_Wakefulness
+    b = read_csv(path=r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new',
+                 name="video_info.xlsx", column="looming_time4",
+                 state_name="Female_{}".format(mouse_state))  # Female_Wakefulness
 
     file_list_2 = []
+    # for item in b['Video_name'][0:len(a['Video_name'])]:
     for item in b['Video_name'][0:6]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
-            name="{}_Movement_Labels".format(item))
+            path=r"D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output",
+            name="{}_Feature_Space".format(item))
         file_list_2.append(file_list1)
     file_list_2 = list(np.ravel(file_list_2))
 

@@ -13,22 +13,40 @@ import matplotlib
 matplotlib.use('Qt5Agg')
 sys.path.append(os.path.abspath(".."))
 
-# color_list = ['#845EC2', '#B39CD0', '#D65DB1', '#4FFBDF', '#FFC75F',
-#               '#D5CABD', '#B0A8B9', '#FF6F91', '#F9F871', '#D7E8F0',
-#               '#60DB73', '#E8575A', '#008B74', '#00C0A3', '#FF9671',
-#               '#93DEB1']
 """
-    Arousal Behavior Class Combine
-    1、Right turning:[1]  (#845EC2)             2、Left turning:[26]  (#B39CD0)
-    3、Sniffing:[2, 4, 10, 11, 12, 16, 22, 25]  (#D65DB1)
-    4、Walking:[3, 6, 7, 19, 30]  (#4FFBDF)     5、Trembling:[5, 15, 32, 40]  (#FFC75F)
-    6、Climbing:[8, 29]   (#D5CABD)             7、Falling:[9]         (#B0A8B9)
-    8、Immobility:[13, 20, 33, 34] (#FF6F91)    9、Paralysis:[14, 35]  (#F9F871)
-    10、Standing:[17]      (#D7E8F0)            11、Trotting:[18, 31]  (#60DB73)
-    12、Grooming:[21]      (#E8575A)            13、Flight:[23, 38]    (#008B74)
-    14、Running:[24, 36]   (#00C0A3)            15、LORR:[27, 28, 39]  (#FF9671)
-    16、Stepping:[37]      (#93DEB1)
+    Arousal Behavior Class Combine-SP behavior 2022.09.23
+    2、Running:[23, 24, 38]            3、Trotting:[6, 7, 36]
+    4、Walking:[19, 30, 31]            5、Stepping:[10, 18]
+    6、Left turning:[26]               7、Right turning:[16]
+    8、Rising:[17]                     9、Standing:[29]
+    10、Climbing:[8, 9]
+    11、Sniffing:[2, 3, 4, 11, 21, 22, 25, 33, 37]
+    12、Grooming:[20, 34, 40]          13、Immobility:[1, 12, 13]
+    14、LORR:[27, 28, 39]              15、Paralysis:[5]
+    16、Twitching:[14, 15, 32, 35]
 """
+
+behavior_dict = {
+    'flight': '#f25832',
+    'Running': '#cd5c5c',
+    'Trotting': '#fc7c59',
+    'Walking': '#ff9e80',
+    'Stepping': '#ffbfa9',
+    'Left turning': '#d3afa4',
+    'Right turning': '#e3c9c2',
+    'Rising': '#f4a460',
+    'Standing': '#ffcc00',
+    'Climbing': '#ffe735',
+    'Sniffing': '#ff6e00',
+    'Grooming': '#48a36d',
+    'Immobility': '#c896c8',
+    'LORR': '#4798b3',
+    'Paralysis': '#8bb9cc',
+    'Twitching': '#c5dce5'
+}
+
+color_list = list(behavior_dict.values())
+movement_names = list(behavior_dict.keys())
 
 
 def search_csv(path=".", name=""):  # 抓取csv文件
@@ -125,24 +143,20 @@ def del_pre_data(data_list):
         del_data = np.delete(del_data, item, 1)
         del_data = np.delete(del_data, item, 0)
 
-    names = ['Right turning', 'Left turning', 'Sniffing', 'Walking', 'Trembling', 'Climbing', 'Falling',
-             'Immobility', 'Paralysis', 'Standing', 'Trotting', 'Grooming', 'Flight', 'Running', 'LORR', 'Stepping']
+    names = movement_names
 
     # color_list = ['#845EC2', '#B39CD0', '#D65DB1', '#4FFBDF', '#FFC75F',
     #               '#D5CABD', '#B0A8B9', '#FF6F91', '#F9F871', '#D7E8F0',
     #               '#60DB73', '#E8575A', '#008B74', '#00C0A3', '#FF9671',
     #               '#93DEB1']
 
-    color_list = ['#A86A74', '#CB4042', '#FF6E00', '#EF8C92', '#89BDDE',
-                  '#FFB67F', '#FFC408', '#937DAD', '#478FB1', '#FFE2CC',
-                  '#EFB4C5', '#1d953f', '#B34C5A', '#D35889', '#A8DBD9',
-                  '#EACAC9']
+    color_lists = color_list
 
     for item in del_index:
         del names[item]
-        del color_list[item]
+        del color_lists[item]
 
-    return del_data, names, color_list
+    return del_data, names, color_lists
 
 
 # explicit function to normalize array

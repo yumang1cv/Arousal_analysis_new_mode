@@ -7,6 +7,41 @@ import numpy as np
 import substring
 from tqdm import tqdm
 
+"""
+    Arousal Behavior Class Combine-SP behavior 2022.09.23
+    2、Running:[23, 24, 38]            3、Trotting:[6, 7, 36]
+    4、Walking:[19, 30, 31]            5、Stepping:[10, 18]
+    6、Left turning:[26]               7、Right turning:[16]
+    8、Rising:[17]                     9、Standing:[29]
+    10、Climbing:[8, 9]
+    11、Sniffing:[2, 3, 4, 11, 21, 22, 25, 33, 37]
+    12、Grooming:[20, 34, 40]          13、Immobility:[1, 12, 13]
+    14、LORR:[27, 28, 39]              15、Paralysis:[5]
+    16、Twitching:[14, 15, 32, 35]
+"""
+
+behavior_dict = {
+    'flight': '#f25832',
+    'Running': '#cd5c5c',
+    'Trotting': '#fc7c59',
+    'Walking': '#ff9e80',
+    'Stepping': '#ffbfa9',
+    'Left turning': '#d3afa4',
+    'Right turning': '#e3c9c2',
+    'Rising': '#f4a460',
+    'Standing': '#ffcc00',
+    'Climbing': '#ffe735',
+    'Sniffing': '#ff6e00',
+    'Grooming': '#48a36d',
+    'Immobility': '#c896c8',
+    'LORR': '#4798b3',
+    'Paralysis': '#8bb9cc',
+    'Twitching': '#c5dce5'
+}
+
+color_list = list(behavior_dict.values())
+movement_name = list(behavior_dict.keys())
+
 
 def search_csv(path=".", name=""):  # 抓取csv文件
     result = []
@@ -204,26 +239,31 @@ if __name__ == '__main__':
     """
         单组分分析
     """
-    a = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
-                 name="video_info.xlsx", column="looming_time3", state_name="Male_RoRR")  # Male_Wakefulness
+    mouse_state = 'RoRR'
+    a = read_csv(path=r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new',
+                 name="video_info.xlsx", column="looming_time4",
+                 state_name="Male_{}".format(mouse_state))  # Male_Wakefulness
 
     file_list_1 = []
+    # for item in a['Video_name'][0:len(a['Video_name'])]:
     for item in a['Video_name'][0:5]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
+            path=r"D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output",
             name="{}_Movement_Labels".format(item))
         file_list_1.append(file_list1)
     file_list_1 = list(np.ravel(file_list_1))
 
-    b = read_csv(path=r'D:/3D_behavior/Arousal_behavior/Arousal_result_all',
-                 name="video_info.xlsx", column="looming_time3", state_name="Female_RoRR")  # Female_Wakefulness
+    b = read_csv(path=r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new',
+                 name="video_info.xlsx", column="looming_time4",
+                 state_name="Female_{}".format(mouse_state))  # Female_Wakefulness
 
     file_list_2 = []
+    # for item in b['Video_name'][0:len(a['Video_name'])]:
     for item in b['Video_name'][0:6]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:/3D_behavior/Arousal_behavior/Arousal_result_all/BeAMapping/BeAMapping_replace",
+            path=r"D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output",
             name="{}_Movement_Labels".format(item))
         file_list_2.append(file_list1)
     file_list_2 = list(np.ravel(file_list_2))
@@ -240,7 +280,7 @@ if __name__ == '__main__':
     #     csv_FD.append(csv_result3[0])
 
     # for item in file_list_1:
-    data = file_list_1
+    data = file_list_2
     pre_df = a
     for x in range(1, 5):
         behavior_all = []
@@ -249,7 +289,7 @@ if __name__ == '__main__':
             f = pd.read_csv(item)
             class_type = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0,
                           9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 0}
-            start_time = int(pre_df['looming_time{}'.format(x)][j] - 0 * 30)
+            start_time = int(pre_df['looming_time{}'.format(x)][j] - 5 * 30)
             end_time = int(start_time + 120 * 30 - 1)
             """
                 pandas计算步骤
@@ -270,10 +310,11 @@ if __name__ == '__main__':
         final_data = pd.DataFrame(behavior_all)
 
         behavior_num = 16 - (final_data == 0).astype(int).sum(axis=1)
+        final_data.columns = movement_name
         final_data['behavior_num'] = behavior_num
 
-        final_data.to_excel('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/behavior_fre/looming'
-                            '/Male_RoRR{}.xlsx'.format(x))
+        final_data.to_excel(r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Analysis\behavior_fre/'
+                            '/Female_RoRR{}.xlsx'.format(x))
 
     # with open(item) as f:  # read single file to dict
     #     reader = f
