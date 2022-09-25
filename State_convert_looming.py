@@ -152,16 +152,13 @@ def del_pre_data(data_list):
     #               '#60DB73', '#E8575A', '#008B74', '#00C0A3', '#FF9671',
     #               '#93DEB1']
 
-    # color_list = ['#A86A74', '#CB4042', '#FF6E00', '#EF8C92', '#89BDDE',
-    #               '#FFB67F', '#FFC408', '#937DAD', '#478FB1', '#FFE2CC',
-    #               '#EFB4C5', '#1d953f', '#B34C5A', '#D35889', '#A8DBD9',
-    #               '#EACAC9']
+    color_list_1 = color_list
 
     for item in del_index:
         del names[item]
-        del color_list[item]
+        del color_list_1[item]
 
-    return del_data, names, color_list
+    return del_data, names, color_list_1
 
 
 # explicit function to normalize array
@@ -186,7 +183,7 @@ if __name__ == '__main__':
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
             path=r"D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output",
-            name="{}_Feature_Space".format(item))
+            name="{}_Movement_Labels".format(item))
         file_list_1.append(file_list1)
     file_list_1 = list(np.ravel(file_list_1))
 
@@ -200,7 +197,7 @@ if __name__ == '__main__':
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
             path=r"D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output",
-            name="{}_Feature_Space".format(item))
+            name="{}_Movement_Labels".format(item))
         file_list_2.append(file_list1)
     file_list_2 = list(np.ravel(file_list_2))
 
@@ -212,11 +209,11 @@ if __name__ == '__main__':
     #                   'Stepping']
     file_list = file_list_2
     dataframe = b
-    mouse_state = 'RORR'
-    looming_time = 2
+    # mouse_state = 'RORR'
+    looming_time = 4
     Male_data = np.zeros((16, 16))
     Female_data = np.zeros((16, 16))
-    for x in range(1, looming_time, 1):  # 调整间隔时长：5min/10min
+    for x in range(4, looming_time+1, 1):  # 调整间隔时长：5min/10min
         # for x in range(1, 2):
         state = "looming_time{}".format(x)
         for num in range(len(file_list)):  # 访问老鼠个体
@@ -253,6 +250,6 @@ if __name__ == '__main__':
         plt.ylabel('Fraction', fontsize=15)
         plt.tight_layout()
         plt.show()
-        # plt.savefig('D:/3D_behavior/Arousal_behavior/Arousal_result_all/Analysis_result/State_convert/looming'
-        #             '/All_looming_{}{}_2min_v8.tiff'.format(mouse_state, int(x)), dpi=300)
-        # plt.close()
+        plt.savefig(r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Analysis\state_convert\looming'
+                    '/All_looming_{}{}_2min_v21.tiff'.format(mouse_state, int(x)), dpi=300)
+        plt.close()
