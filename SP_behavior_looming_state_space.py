@@ -161,10 +161,10 @@ def pre_data(file_path, movement_label_num, special_time_start, special_time_end
 
 
 def data_combine(file_path, special_time_start, special_time_end):
-    special_time1 = special_time_start * 60 * 30
-    special_time2 = special_time_end * 60 * 30
-    # special_time1 = special_time_start
-    # special_time2 = special_time_end
+    # special_time1 = special_time_start * 60 * 30
+    # special_time2 = special_time_end * 60 * 30
+    special_time1 = special_time_start
+    special_time2 = special_time_end
     data = []
     for i in range(1, 17):
         behavior = pre_data(file_path, i, special_time1, special_time2)
@@ -386,46 +386,46 @@ if __name__ == '__main__':
     """
         单只老鼠所有结果
     """
-    Male_data = []
-    single_data = data_combine(file_list_1[4], 0, 25)
-    Male_data.append(single_data)
-
-    fig = plt.figure(figsize=(12.5, 1), dpi=300)
-    ax = fig.add_subplot(111)
-    for j in range(len(Male_data)):
-        for i in range(len(Male_data[0])):
-            plt.broken_barh(Male_data[j][i], (j, 0.8), facecolors=color_list[i])
-            # plt.broken_barh(Female_data[j][i], (j + 5, 0.8), facecolors=color_list[i])
-
-    plt.tight_layout()
-    plt.axis('off')
-
-    plt.savefig(r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Analysis\state_space\M_15/'
-                'RORR_all_v22.tiff', transparent=True, dpi=300)
-    plt.close()
+    # Male_data = []
+    # single_data = data_combine(file_list_1[4], 0, 25*1800)
+    # Male_data.append(single_data)
+    #
+    # fig = plt.figure(figsize=(12.5, 1), dpi=300)
+    # ax = fig.add_subplot(111)
+    # for j in range(len(Male_data)):
+    #     for i in range(len(Male_data[0])):
+    #         plt.broken_barh(Male_data[j][i], (j, 0.8), facecolors=color_list[i])
+    #         # plt.broken_barh(Female_data[j][i], (j + 5, 0.8), facecolors=color_list[i])
+    #
+    # plt.tight_layout()
+    # plt.axis('off')
+    #
+    # plt.savefig(r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Analysis\state_space\M_15/'
+    #             'RORR_all_v23.tiff', transparent=True, dpi=300)
+    # plt.close()
 
     """
         单只老鼠looming后时刻的数据
     """
-    # mouse_state = "RORR"
-    # # time = 1
-    # for time in range(1, 5):
-    #     mouse_num = 4
-    #     Male_data = []
-    #     single_data = data_combine(file_list_1[mouse_num], a['looming_time{}'.format(time)][mouse_num] - 5 * 30,
-    #                                a['looming_time{}'.format(time)][mouse_num] + 115 * 30)
-    #     Male_data.append(single_data)
-    #
-    #     fig = plt.figure(figsize=(5, 1), dpi=300)
-    #     ax = fig.add_subplot(111)
-    #     for j in range(len(Male_data)):
-    #         for i in range(len(Male_data[0])):
-    #             plt.broken_barh(Male_data[j][i], (j, 0.8), facecolors=color_list[i])
-    #             # plt.broken_barh(Female_data[j][i], (j + 5, 0.8), facecolors=color_list[i])
-    #
-    #     plt.tight_layout()
-    #     plt.axis('off')
-    #
-    #     plt.savefig(r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Analysis\state_space\M_15/'
-    #                 '{}_looming_time_{}_v22.tiff'.format(mouse_state, time), transparent=True, dpi=300)
-    #     plt.close()
+    mouse_state = "RORR"
+    # time = 1
+    for time in range(1, 5):
+        mouse_num = 4
+        Male_data = []
+        single_data = data_combine(file_list_1[mouse_num], a['looming_time{}'.format(time)][mouse_num] - 5 * 30,
+                                   a['looming_time{}'.format(time)][mouse_num] + 115 * 30)
+        Male_data.append(single_data)
+
+        fig = plt.figure(figsize=(5, 1), dpi=300)
+        ax = fig.add_subplot(111)
+        for j in range(len(Male_data)):
+            for i in range(len(Male_data[0])):
+                plt.broken_barh(Male_data[j][i], (j, 0.8), facecolors=color_list[i])
+                # plt.broken_barh(Female_data[j][i], (j + 5, 0.8), facecolors=color_list[i])
+
+        plt.tight_layout()
+        plt.axis('off')
+
+        plt.savefig(r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Analysis\state_space\M_15/'
+                    '{}_looming_time_{}_v23.tiff'.format(mouse_state, time), transparent=True, dpi=300)
+        plt.close()

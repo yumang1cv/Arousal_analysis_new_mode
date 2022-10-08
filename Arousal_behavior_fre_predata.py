@@ -249,7 +249,7 @@ if __name__ == '__main__':
     for item in a['Video_name'][0:5]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output",
+            path=r"D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output_new",
             name="{}_Movement_Labels".format(item))
         file_list_1.append(file_list1)
     file_list_1 = list(np.ravel(file_list_1))
@@ -263,7 +263,7 @@ if __name__ == '__main__':
     for item in b['Video_name'][0:6]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output",
+            path=r"D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output_new",
             name="{}_Movement_Labels".format(item))
         file_list_2.append(file_list1)
     file_list_2 = list(np.ravel(file_list_2))
@@ -280,7 +280,7 @@ if __name__ == '__main__':
     #     csv_FD.append(csv_result3[0])
 
     # for item in file_list_1:
-    data = file_list_2
+    data = file_list_1
     pre_df = a
     for x in range(1, 5):
         behavior_all = []
@@ -314,7 +314,7 @@ if __name__ == '__main__':
         final_data['behavior_num'] = behavior_num
 
         final_data.to_excel(r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Analysis\behavior_fre/'
-                            '/Female_RoRR{}.xlsx'.format(x))
+                            '/Male_{}_{}.xlsx'.format(mouse_state, x))
 
     # with open(item) as f:  # read single file to dict
     #     reader = f

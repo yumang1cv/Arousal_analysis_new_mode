@@ -434,14 +434,14 @@ if __name__ == '__main__':
         sub_list1 = pre_data(file_list_1[i], a, i, state="looming_time1")
         # print(sub_list1)
         Male_list.append(sub_list1)
-    # Male_list = sort_data(Male_list)
+    Male_list = sort_data(Male_list)
 
     Female_list = []
     for i in range(len(file_list_2)):
         sub_list2 = pre_data(file_list_2[i], b, i, state="looming_time1")
         # print(sub_list2)
         Female_list.append(sub_list2)
-    # Female_list = sorted(Female_list)
+    Female_list = sorted(Female_list)
     # Female_list = sort_data(Female_list)
 
     Wake = Male_list + Female_list
@@ -502,14 +502,14 @@ if __name__ == '__main__':
             sub_list3 = pre_data(file_list_3[i], c, i, state=state)
             # print(sub_list2)
             Male_RORR.append(sub_list3)
-        Male_RORR = sort_data(Male_RORR)
+        # Male_RORR = sort_data(Male_RORR)
 
         Female_RORR = []
         for i in range(len(file_list_4)):
             sub_list4 = pre_data(file_list_4[i], d, i, state=state)
             # print(sub_list2)
             Female_RORR.append(sub_list4)
-        Female_RORR = sort_data(Female_RORR)
+        # Female_RORR = sort_data(Female_RORR)
 
         RORR = Male_RORR + Female_RORR
         # RORR = sort_data(RORR)
@@ -538,5 +538,5 @@ if __name__ == '__main__':
         plt.tight_layout()
         plt.show()
         plt.savefig(r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Analysis\corr_matrix\looming'
-                    '/Wake_RORR_looming_time{}_v22.tiff'.format(j), dpi=300, transparent=True)
+                    '/Wake_RORR_looming_time{}_v23.tiff'.format(j), dpi=300, transparent=True)
         plt.close()

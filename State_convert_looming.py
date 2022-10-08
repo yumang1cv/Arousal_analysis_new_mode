@@ -213,7 +213,7 @@ if __name__ == '__main__':
     looming_time = 4
     Male_data = np.zeros((16, 16))
     Female_data = np.zeros((16, 16))
-    for x in range(2, looming_time+1, 1):  # 调整间隔时长：5min/10min
+    for x in range(1, looming_time+1, 1):  # 调整间隔时长：5min/10min
         # for x in range(1, 2):
         state = "looming_time{}".format(x)
         for num in range(len(file_list)):  # 访问老鼠个体
@@ -251,5 +251,5 @@ if __name__ == '__main__':
         plt.tight_layout()
         plt.show()
         plt.savefig(r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Analysis\state_convert\looming'
-                    '/All_looming_{}{}_2min_v22.tiff'.format(mouse_state, int(x)), dpi=300)
+                    '/All_looming_{}{}_2min_v23.tiff'.format(mouse_state, int(x)), dpi=300)
         plt.close()
