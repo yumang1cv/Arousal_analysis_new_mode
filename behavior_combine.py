@@ -127,11 +127,11 @@ def rename_label(file_path):
 
 if __name__ == '__main__':
 
-    # file_list = open_data(r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\SP_behavior_new\BeAOutputs\csv_file_output/',
-    #                       'Feature_Space.csv')
-    file_list = open_data(
-        r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\SP_behavior_new\BeAOutputs\csv_file_output/',
-        'Movement_Labels.csv')
+    file_list = open_data(r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output_new/',
+                          'Feature_Space.csv')
+    # file_list = open_data(
+    #     r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output_new/',
+    #     'Movement_Labels.csv')
     # file_list = sorted(file_list, key=int)   # sort file use num
     for i in tqdm(range(0, len(file_list))):
         with open(file_list[i], 'rb') as file:
@@ -141,5 +141,5 @@ if __name__ == '__main__':
             for j in range(len(first_column)):
                 new_label.append(class_label_dict[first_column[j]])
             df["new_label"] = new_label
-            df.rename(columns={'new_label': new_label[0]}, inplace=True)  # Feature_Space需要注释
+            # df.rename(columns={'new_label': new_label[0]}, inplace=True)  # Feature_Space需要注释
             df.to_csv(file_list[i], index=False)

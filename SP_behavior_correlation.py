@@ -411,7 +411,7 @@ if __name__ == '__main__':
     for item in a['Video_name'][0:5]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output",
+            path=r"D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output_new",
             name="{}_Movement_Labels".format(item))
         file_list_1.append(file_list1)
     file_list_1 = list(np.ravel(file_list_1))
@@ -424,7 +424,7 @@ if __name__ == '__main__':
     for item in b['Video_name'][0:6]:
         item = item.replace("-camera-0", "")
         file_list1 = search_csv(
-            path=r"D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output",
+            path=r"D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output_new",
             name="{}_Movement_Labels".format(item))
         file_list_2.append(file_list1)
     file_list_2 = list(np.ravel(file_list_2))
@@ -457,7 +457,7 @@ if __name__ == '__main__':
     for item in c['Video_name'][0:5]:
         item = item.replace("-camera-0", "")
         file_list3 = search_csv(
-            path=r"D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output",
+            path=r"D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output_new",
             name="{}_Movement_Labels".format(item))
         file_list_3.append(file_list3)
     file_list_3 = list(np.ravel(file_list_3))
@@ -470,7 +470,7 @@ if __name__ == '__main__':
     for item in d['Video_name'][0:6]:
         item = item.replace("-camera-0", "")
         file_list4 = search_csv(
-            path=r"D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output",
+            path=r"D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new\BeAOutputs\csv_file_output_new",
             name="{}_Movement_Labels".format(item))
         file_list_4.append(file_list4)
     file_list_4 = list(np.ravel(file_list_4))
@@ -502,14 +502,14 @@ if __name__ == '__main__':
             sub_list3 = pre_data(file_list_3[i], c, i, state=state)
             # print(sub_list2)
             Male_RORR.append(sub_list3)
-        # Male_RORR = sort_data(Male_RORR)
+        Male_RORR = sort_data(Male_RORR)
 
         Female_RORR = []
         for i in range(len(file_list_4)):
             sub_list4 = pre_data(file_list_4[i], d, i, state=state)
             # print(sub_list2)
             Female_RORR.append(sub_list4)
-        # Female_RORR = sort_data(Female_RORR)
+        Female_RORR = sort_data(Female_RORR)
 
         RORR = Male_RORR + Female_RORR
         # RORR = sort_data(RORR)
@@ -538,5 +538,5 @@ if __name__ == '__main__':
         plt.tight_layout()
         plt.show()
         plt.savefig(r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Analysis\corr_matrix\looming'
-                    '/Wake_RORR_looming_time{}min_v22.tiff'.format(j), dpi=300, transparent=True)
+                    '/Wake_RORR_looming_time{}_v22.tiff'.format(j), dpi=300, transparent=True)
         plt.close()
