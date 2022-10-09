@@ -354,7 +354,7 @@ if __name__ == '__main__':
     """
         单只老鼠使用   
     """
-    mouse_state = 'RoRR'
+    mouse_state = 'Wakefulness'
     a = read_csv(path=r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Arousal_result_final\looming_new',
                  name="video_info.xlsx", column="looming_time4",
                  state_name="Male_{}".format(mouse_state))  # Male_Wakefulness
@@ -387,10 +387,11 @@ if __name__ == '__main__':
         单只老鼠所有结果
     """
     # Male_data = []
-    # single_data = data_combine(file_list_1[4], 0, 25*1800)
+    # single_data = data_combine(file_list_1[4], 0, 10*1800)
     # Male_data.append(single_data)
     #
-    # fig = plt.figure(figsize=(12.5, 1), dpi=300)
+    # # fig = plt.figure(figsize=(12.5, 1), dpi=300)
+    # fig = plt.figure(figsize=(5, 1), dpi=300)
     # ax = fig.add_subplot(111)
     # for j in range(len(Male_data)):
     #     for i in range(len(Male_data[0])):
@@ -401,13 +402,13 @@ if __name__ == '__main__':
     # plt.axis('off')
     #
     # plt.savefig(r'D:\3D_behavior\Arousal_behavior\Arousal_analysis_new\Analysis\state_space\M_15/'
-    #             'RORR_all_v23.tiff', transparent=True, dpi=300)
+    #             'Wake_all_v23.tiff', transparent=True, dpi=300)
     # plt.close()
 
     """
         单只老鼠looming后时刻的数据
     """
-    mouse_state = "RORR"
+    mouse_state = "Wakefulness"
     # time = 1
     for time in range(1, 5):
         mouse_num = 4
