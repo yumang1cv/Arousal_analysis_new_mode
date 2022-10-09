@@ -17,16 +17,16 @@ color_list = ['#845EC2', '#B39CD0', '#D65DB1', '#4FFBDF', '#FFC75F',
               '#60DB73', '#E8575A', '#008B74', '#00C0A3', '#FF9671',
               '#93DEB1']
 """
-    Arousal Behavior Class Combine
-    1、Right turning:[1]  (#845EC2)             2、Left turning:[26]  (#B39CD0)
-    3、Sniffing:[2, 4, 10, 11, 12, 16, 22, 25]  (#D65DB1)
-    4、Walking:[3, 6, 7, 19, 30]  (#4FFBDF)     5、Trembling:[5, 15, 32, 40]  (#FFC75F)
-    6、Climbing:[8, 29]   (#D5CABD)             7、Falling:[9]         (#B0A8B9)
-    8、Immobility:[13, 20, 33, 34] (#FF6F91)    9、Paralysis:[14, 35]  (#F9F871)
-    10、Standing:[17]      (#D7E8F0)            11、Trotting:[18, 31]  (#60DB73)
-    12、Grooming:[21]      (#E8575A)            13、Flight:[23, 38]    (#008B74)
-    14、Running:[24, 36]   (#00C0A3)            15、LORR:[27, 28, 39]  (#FF9671)
-    16、Stepping:[37]      (#93DEB1)
+    Arousal Behavior Class Combine-SP behavior 2022.09.23
+    2、Running:[23, 24, 38]            3、Trotting:[6, 7, 36]
+    4、Walking:[19, 30, 31]            5、Stepping:[10, 18]
+    6、Left turning:[26]               7、Right turning:[16]
+    8、Rising:[17]                     9、Standing:[29]
+    10、Climbing:[8, 9]
+    11、Sniffing:[2, 3, 4, 11, 21, 22, 25, 33, 37]
+    12、Grooming:[20, 34, 40]          13、Immobility:[1, 12, 13]
+    14、LORR:[27, 28, 39]              15、Paralysis:[5]
+    16、Twitching:[14, 15, 32, 35]
 """
 
 
